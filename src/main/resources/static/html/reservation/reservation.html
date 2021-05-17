@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>预约课程</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/js/bootstrap/bootstrap-v4.3.1.min.css">
+    <link rel="stylesheet" href="/css/reservation.css">
+</head>
+
+<body>
+    <div class="navbar navbar-expand-lg navbar-light bg-light ">
+        <h3 class="navbar-brand">诊断辅导预约系统</h3>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#userMenuDropdown"
+            aria-controls="userMenuDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="userMenuDropdown">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">主页 </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">发布课程</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">预约课程</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">评价系统</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">历史信息</a>
+                </li>
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav top-user">
+                    <li class="dropdown  nav-item">
+                        <a id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user userName">用户</span>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">个人信息</a>
+                            <a class="dropdown-item" href="#">。。。</a>
+                            <a class="dropdown-item" href="#">退出</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#">帮助</a></li>
+                    <li class="nav-item"><a herf="#about">关于我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container function">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="reservationsClas-tab" data-toggle="tab" href="#reservationsClas"
+                    role="tab" aria-controls="reservationsClas" aria-selected="true">预约课程</a>
+                <a class="nav-item nav-link" id="reservationsHistory-tab" data-toggle="tab" href="#reservationsHistory"
+                    role="tab" aria-controls="reservationsHistory" aria-selected="false">未开课预约记录</a>
+                <a class="nav-item nav-link" id="doneReservationsHistory-tab" data-toggle="tab"
+                    href="#doneReservationsHistory" role="tab" aria-controls="doneReservationsHistory"
+                    aria-selected="false">已结束预约记录</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade  p-2 show active" id="reservationsClas" role="tabpanel"
+                aria-labelledby="reservationsClas-tab">
+                <div class="search-box card">
+                    <div class="row card-body">
+                        <div class="col-md-6">
+                            <h5 style="display: inline-block;">
+                                按条件搜索
+                            </h5>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button class="btn btn-primary p-1">搜索</button>
+                        </div>
+                        <hr class="col-md-12">
+                        <div class="row col-md-12">
+                            <div class="col-md-3">
+                                <p>按时间</p>
+                                <input class="form-control" type="date">
+                            </div>
+                            <div class="col-md-3">
+                                <p>按课程类型</p>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="col-md-3">
+                                <p>按课程名</p>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="col-md-3">
+                                <p>按老师名</p>
+                                <input class="form-control" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <table class="table text-center table-striped  shadow" id="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">序号</th>
+                            <th scope="col">时间</th>
+                            <th scope="col">类型</th>
+                            <th scope="col">名称</th>
+                            <th scope="col">老师</th>
+                            <th scope="col">预约人数</th>
+                            <th scope="col">地点</th>
+                            <th scope="col">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rese-class-msg-container">
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade p-2" id="reservationsHistory" role="tabpanel"
+                aria-labelledby="servationsHistory-tab">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>时间</th>
+                            <th>类型</th>
+                            <th>老师</th>
+                            <th>地点</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rese-class-historyMsg-container">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade p-2" id="doneReservationsHistory" role="tabpanel"
+                aria-labelledby="doneReservationsHistory-tab">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>时间</th>
+                            <th>类型</th>
+                            <th>老师</th>
+                            <th>地点</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rese-class-doneHistoryMsg-container">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <!-- 模态框开始 -->
+    <div class="modal fade " id="classMsgModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="classMsgModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="classMsgModalCenterTitle">课程详细介绍</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body classContent text-break">
+                    <!-- <div class="col-md-4"><p>课程序号</p><span class="align-middle modal-index">111111111111111111111111111111111111111111111111</span></div> -->
+                    <!-- <div class="col-md-4"><p>课程时间</p><span class="align-middle modal-classTime">111111111111111111111111</span></div> -->
+                    <!-- <div class="col-md-4"><p>课程类型</p><span class="align-middle modal-classType">111111111111111111111111111111111111111111111111</span></div> -->
+                    <!-- <div class="col-md-4"><p>课程名称</p><span class="align-middle modal-className">111111111111111111111111111111111111111111111111</span></div> -->
+                    <!-- <div class="col-md-4"><p>课程老师</p><span class="align-middle modal-teacherName">111111111111111111111111111111111111111111111111</span></div> -->
+                    <!-- <div class="col-md-4"><p>课程内容</p><span class="align-middle modal-classContent">111111111111111111111111</span></div> -->
+                    <!-- <div class="col-md-12"><p>课程详细介绍</p><span lass="align-middle modal-detailed">111111111111111111111111</span></div> -->
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary model-close" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary model-yes reservation-btn"
+                        data-dismiss="modal">预约</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 模态框结束 -->
+
+    <script type="text/html" id="rese-class-msg-art">
+        {{ if classList && classList.length>0 }}{{each classList}}
+        <tr>
+            <th class="align-middle" scope="row">{{$value.index}}</th>
+            <td class="align-middle">{{$value.time}}</td>
+            <td class="align-middle">{{$value.type}}</td>
+            <td class="align-middle">{{$value.name}}</td>
+            <td class="align-middle">{{$value.teacherName}}</td>
+            <td class="align-middle">{{$value.number}}</td>
+            <td class="align-middle">{{$value.place}}</td>
+            <td class="align-middle">
+                <p><a href="#" class="detailed text-decoration-none font-italic" data-index="{{$value.index}}">详情</a>
+                </p>
+                <p><a href="#" class="text-decoration-none font-italic reservation-btn"
+                        data-index="{{$value.index}}">预约</a></p>
+            </td>
+        </tr>
+        {{/each}}{{/if}}
+    </script>
+
+
+    <script type="text/html" id="rese-class-historyMsg-art">
+        {{ if historyList && historyList.length>0 }}{{each historyList}}
+        <tr>
+            <th class="align-middle" scope="row">{{$value.index}}</th>
+            <td class="align-middle">{{$value.time}}</td>
+            <td class="align-middle">{{$value.type}}</td>
+            <td class="align-middle">{{$value.teacherName}}</td>
+            <td class="align-middle">{{$value.place}}</td>
+            <td class="align-middle">
+                <p><a href="#" class="detailed text-decoration-none font-italic" data-index="{{$value.index}}">详情</a>
+                </p>
+                <p><a href="#" class="text-decoration-none font-italic cancel-reservation-btn"
+                        data-index="{{$value.index}}">取消</a></p>
+            </td>
+        </tr>
+        {{/each}}{{/if}}
+    </script>
+
+    <script type="text/html" id="rese-class-doneHistoryMsg-art">
+        {{ if doneHistoryList && doneHistoryList.length>0 }}{{each doneHistoryList}}
+        <tr>
+            <th class="align-middle" scope="row">{{$value.index}}</th>
+            <td class="align-middle">{{$value.time}}</td>
+            <td class="align-middle">{{$value.type}}</td>
+            <td class="align-middle">{{$value.teacherName}}</td>
+            <td class="align-middle">{{$value.place}}</td>
+            <td class="align-middle">
+                <p><a href="#" class="text-decoration-none font-italic cancel-reservation-btn"
+                        data-index="{{$value.index}}">评价</a></p>
+            </td>
+        </tr>
+        {{/each}}{{/if}}
+    </script>
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/bootstrap/popper.min.js"></script>
+    <script src="/js/bootstrap/bootstrap-v4.3.1.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/template.js"></script>
+    <script>
+        var reservation = (function () {
+            var bindEvents = function () {
+                reservation.getClassList();
+                reservation.el('.detailed').off('click').on('click', function () {
+                    var $this = $(this);
+                    var index = $this.data("index");
+                    reservation.el('.model-yes').data('index', index);
+                    classContent = {
+                        "classContent": "辅导同学的唐诗阅读理解"
+                    };
+                    // "classContent": "辅导同学的方程解算"
+                    // "classContent": "辅导同学的单词朗读背诵"
+                    // "classContent": "加强同学课后的理解"
+                    reservation.el("#classMsgModalCenter .classContent").html(classContent
+                        .classContent);
+                    reservation.el('#classMsgModalCenter').modal();
+                });
+                reservation.el('.reservation-btn').off('click').on('click', function () {
+                    var $this = $(this);
+                    var index = $this.data("index");
+                    App.alert('预约成功！');
+                });
+                reservation.el('.cancel-reservation-btn').off('click').on('click', function () {
+                    App.alert('取消成功');
+                });
+            };
+            return {
+                data() {
+
+                },
+                el: function (expr) {
+                    return $(expr ? expr : 'body');
+                },
+                init: function () {
+                    bindEvents();
+                    return this
+                },
+                getClassList: function () {
+                    classList = [{
+                        "index": "1",
+                        "time": "2020年1月4日 19点56分",
+                        "type": "语文",
+                        "name": "唐诗阅读",
+                        "teacherName": "啊啾",
+                        "place": "逸夫楼七年级5班教室",
+                        "number": "5",
+                    }, {
+                        "index": "2",
+                        "time": "2020年1月4日 19点56分",
+                        "type": "数学",
+                        "name": "一元二次方程",
+                        "teacherName": "啊啾",
+                        "place": "逸夫楼七年级5班教室",
+                        "number": "5",
+                    }, {
+                        "index": "3",
+                        "time": "2020年1月4日 19点56分",
+                        "type": "英语",
+                        "name": "单词阅读",
+                        "teacherName": "啊啾",
+                        "place": "逸夫楼七年级5班教室",
+                        "number": "5",
+                    }, {
+                        "index": "4",
+                        "time": "2020年1月4日 19点56分",
+                        "type": "物理",
+                        "name": "课后辅导",
+                        "teacherName": "啊啾",
+                        "place": "逸夫楼七年级5班教室",
+                        "number": "5",
+                    }];
+                    reservation.el("#rese-class-msg-container").html(template('rese-class-msg-art', {
+                        classList: classList
+                    }));
+                    reservation.el("#rese-class-historyMsg-container").html(template(
+                        'rese-class-historyMsg-art', {
+                            historyList: classList
+                        }));
+                    reservation.el("#rese-class-doneHistoryMsg-container").html(template(
+                        'rese-class-doneHistoryMsg-art', {
+                            doneHistoryList: classList
+                        }));
+                    reservation.el('#table').data('classList', classList);
+                },
+            }
+        })();
+        $(function () {
+            reservation.init();
+        })
+    </script>
+</body>
+
+</html>

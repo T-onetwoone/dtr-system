@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.mju.ccce.dtrsystem.dao.LoginDao">
+    <resultMap id="UserMap" type="cn.edu.mju.ccce.dtrsystem.bean.User">
+        <result property="USER_ID" column="USER_ID"/>
+        <result property="USER_NAME" column="USER_NAME"/>
+        <result property="USER_NBR" column="USER_NBR"/>
+        <result property="USER_SEX" column="USER_SEX"/>
+        <result property="TYPE_ID" column="TYPE_ID"/>
+        <result property="TYPE_NAME" column="TYPE_NAME"/>
+        <result property="USER_PHONE" column="USER_PHONE"/>
+        <result property="USER_PASS" column="USER_PASS"/>
+        <result property="EVALUATE_NBR" column="EVALUATE_NBR"/>
+        <result property="USER_STATUS" column="USER_STATUS"/>
+        <result property="CREAT_TIME" column="CREAT_TIME"/>
+        <result property="UPDATE_TIME" column="UPDATE_TIME"/>
+    </resultMap>
+    <sql id="sl_User">
+        <![CDATA[
+         USER_ID,
+         USER_NAME,
+         USER_NBR,
+         USER_SEX,
+         TYPE_ID,
+         TYPE_NAME,
+         USER_PHONE,
+         USER_PASS,
+         EVALUATE_NBR,
+         USER_STATUS,
+         CREAT_TIME,
+         UPDATE_TIME
+        ]]>
+    </sql>
+    <select id="selectUser" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT USER_NAME,USER_SEX,TYPE_NAME
+        FROM user
+        WHERE USER_NBR =#{userNbr,jdbcType=VARCHAR} AND USER_PASS = #{userPass,jdbcType=VARCHAR} AND USER_STATUS = 0
+    </select>
+    <select id="selectUserAllMsgByUserNbr" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT USER_NAME,USER_NBR,USER_SEX,TYPE_NAME,USER_PHONE
+        FROM user
+        WHERE USER_NBR =#{userNbr,jdbcType=VARCHAR}  AND USER_STATUS = 0
+    </select>
+
+</mapper>

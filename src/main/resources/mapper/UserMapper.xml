@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.mju.ccce.dtrsystem.dao.UserDao">
+    <resultMap id="UserMap" type="cn.edu.mju.ccce.dtrsystem.bean.User">
+        <result property="USER_ID" column="USER_ID"/>
+        <result property="USER_NAME" column="USER_NAME"/>
+        <result property="USER_NBR" column="USER_NBR"/>
+        <result property="USER_SEX" column="USER_SEX"/>
+        <result property="TYPE_ID" column="TYPE_ID"/>
+        <result property="TYPE_NAME" column="TYPE_NAME"/>
+        <result property="USER_PHONE" column="USER_PHONE"/>
+        <result property="USER_PASS" column="USER_PASS"/>
+        <result property="USER_STATUS" column="USER_STATUS"/>
+        <result property="CREAT_TIME" column="CREAT_TIME"/>
+        <result property="UPDATE_TIME" column="UPDATE_TIME"/>
+    </resultMap>
+    <sql id="sl_User">
+        <![CDATA[
+                 USER_ID,
+                 USER_NAME,
+                 USER_NBR,
+                 USER_SEX,
+                 TYPE_ID,
+                 TYPE_NAME,
+                 USER_PHONE,
+                 USER_PASS,
+                 USER_STATUS,
+                 CREAT_TIME,
+                 UPDATE_TIME
+        ]]>
+    </sql>
+    <insert id="createUser" useGeneratedKeys="true" keyProperty="USER_ID"
+            parameterType="cn.edu.mju.ccce.dtrsystem.bean.User">
+        INSERT INTO user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="USER_NAME != null">
+                USER_NAME,
+            </if>
+            <if test="USER_NBR != null">
+                USER_NBR,
+            </if>
+            <if test="USER_SEX != null">
+                USER_SEX,
+            </if>
+            <if test="TYPE_ID != null">
+                TYPE_ID,
+            </if>
+            <if test="TYPE_NAME != null">
+                TYPE_NAME,
+            </if>
+            <if test="USER_PHONE != null">
+                USER_PHONE,
+            </if>
+            <if test="USER_PASS != null">
+                USER_PASS,
+            </if>
+            <if test="USER_STATUS != null">
+                USER_STATUS,
+            </if>
+            <if test="CREAT_TIME != null">
+                CREAT_TIME,
+            </if>
+            <if test="UPDATE_TIME != null">
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="USER_NAME != null">
+                #{USER_NAME,jdbcType=VARCHAR},
+            </if>
+            <if test="USER_NBR != null">
+                #{USER_NBR,jdbcType=NUMERIC},
+            </if>
+            <if test="USER_SEX != null">
+                #{USER_SEX,jdbcType=VARCHAR},
+            </if>
+            <if test="TYPE_ID != null">
+                #{TYPE_ID,jdbcType=NUMERIC},
+            </if>
+            <if test="TYPE_NAME != null">
+                #{TYPE_NAME,jdbcType=VARCHAR},
+            </if>
+            <if test="USER_PHONE != null">
+                #{USER_PHONE,jdbcType=NUMERIC},
+            </if>
+            <if test="USER_PASS != null">
+                #{USER_PASS,jdbcType=VARCHAR},
+            </if>
+            <if test="USER_STATUS != null">
+                #{USER_STATUS,jdbcType=NUMERIC},
+            </if>
+            <if test="CREAT_TIME != null">
+                #{CREAT_TIME,jdbcType=TIMESTAMP},
+            </if>
+            <if test="UPDATE_TIME != null">
+                #{UPDATE_TIME,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectUserTypeID" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT TYPE_ID
+        from user_type
+        where TYPE_NAME = #{TYPE_NAME,jdbcType=VARCHAR} AND TPYE_STATUS = 0
+    </select>
+
+    <select id="selectUser" parameterType="java.lang.String" resultType="cn.edu.mju.ccce.dtrsystem.bean.User">
+        SELECT <include refid="sl_User"/>
+        FROM user
+        WHERE USER_NBR = #{userNbr,jdbcType=VARCHAR} AND USER_STATUS = 0
+    </select>
+    <update id="upDataUser" parameterType="cn.edu.mju.ccce.dtrsystem.bean.User">
+        update user
+        <set><trim suffixOverrides=",">
+            <if test="USER_NAME != null">
+                USER_NAME=#{USER_NAME,jdbcType=VARCHAR},
+            </if>
+            <if test="USER_NBR != null">
+                USER_NBR=#{USER_NBR,jdbcType=NUMERIC},
+            </if>
+            <if test="USER_SEX != null">
+                USER_SEX=#{USER_SEX,jdbcType=VARCHAR},
+            </if>
+            <if test="TYPE_ID != null">
+                TYPE_ID=#{TYPE_ID,jdbcType=NUMERIC},
+            </if>
+            <if test="TYPE_NAME != null">
+                TYPE_NAME=#{TYPE_NAME,jdbcType=VARCHAR},
+            </if>
+            <if test="USER_PHONE != null">
+                USER_PHONE=#{USER_PHONE,jdbcType=NUMERIC},
+            </if>
+            <if test="USER_PASS != null">
+                USER_PASS=#{USER_PASS,jdbcType=VARCHAR},
+            </if>
+            <if test="USER_STATUS != null">
+                USER_STATUS=#{USER_STATUS,jdbcType=NUMERIC},
+            </if>
+            <if test="CREAT_TIME != null">
+                CREAT_TIME=#{CREAT_TIME,jdbcType=TIMESTAMP},
+            </if>
+            <if test="UPDATE_TIME != null">
+                UPDATE_TIME=#{UPDATE_TIME,jdbcType=TIMESTAMP},
+            </if>
+        </trim></set>
+        WHERE  USER_NBR = #{USER_NBR,jdbcType=NUMERIC}
+    </update>
+
+    <select id="getAllUser" resultType="cn.edu.mju.ccce.dtrsystem.bean.User">
+        SELECT  <include refid="sl_User" />
+        FROM user
+        WHERE USER_STATUS = 0
+    </select>
+
+</mapper>

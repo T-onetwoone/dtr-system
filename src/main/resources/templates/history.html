@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>历史记录</title>
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/css/evaluate.css">
+    <link rel="stylesheet" type="text/css" href="/js/bootstrap/bootstrap-v4.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="/js/uiduck/uiduck.css">
+</head>
+<body>
+<div th:replace="header :: header"></div>
+<div class="container function">
+    <br/>
+    <div id="stuTable" class="shadow">
+    </div>
+    <div id="teaTable" class="shadow">
+    </div>
+    <!--以下为两个必须div元素-->
+    <script type="text/html" id="stuDemo">
+        <a href="javascript:;" class="set-msg-btn text-decoration-none font-italic">点击评价</a>
+        <br/>
+        <a href="javascript:;" class="get-msg-btn text-decoration-none font-italic">老师评价</a>
+    </script>
+    <div id="ud-top" style="display: none">-->
+        <h3>当前设置为微信字段，通过ud-keyWord属性指定相关列的key</h3>
+        <input id="search" ud-keyWord="COURSE_TEACHER_NAME" class="uiduck-input"/>
+        <button class="uiduck-btn set-data">搜索</button>
+    </div>
+    <br/>
+    <script type="text/html" id="teaDemo">
+        <a href="javascript:;" class="stuList-btn text-decoration-none font-italic">学生详情</a>
+    </script>
+</div>
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap/popper.min.js"></script>
+<script src="/js/bootstrap/bootstrap-v4.3.1.min.js"></script>
+<script src="/js/uiduck/uiduck.js"></script>
+<script src="/js/uiduck/json2.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    // history是js的保留字段，重起名
+    var historyPage = (function () {
+        var bindEvents = function () {
+        };
+        return {
+            data: {},
+            el: function (expr) {
+                return $(expr ? expr : 'body');
+            },
+            init: function () {
+                bindEvents();
+                App.getUserMsg()
+                    .then(function () { App.setWhere('historyPage');return this;})
+                    .then(function () {historyPage.getHistory();return this;});
+                return this
+            },
+            getHistory: function () {
+                $.loadJSON('/dtr/his/getHistory',{}).done(function (data) {
+                    var type = historyPage.el('#header-userDropdown').data("uType");
+                    if (!App.checker(data)) {
+                        return;
+                    } else {
+                        if (type === "学生"){
+                            var reservationList = data.reservationList;
+                            if (reservationList === null || reservationList === undefined){
+                                App.topAlert("查询为空");
+                            }
+                            historyPage.paddingTable(reservationList,type);
+                        }else{
+                            var courseList = data.courseList;
+                            if (courseList === null || courseList === undefined){
+                                App.topAlert("查询为空");
+                            }
+                            historyPage.paddingTable(courseList,type);
+                        }
+                        return;
+                    }
+                });
+            },
+            paddingTable: function (dataList,type) {
+                if (type === "学生"){
+                return $.Deferred(function (defer) {
+                    uiduck.setOptions({
+                        templateId: "stuTable",
+                        style: {tbClass: "table text-center table-striped", tdClass: "align-middle"},
+                        // topBar: {templateId: "search", kwLight: true},
+                        // rightTool: {templateId: "stuDemo", title: "操作", width: "100px"},
+                        loading: {icon: "loading", blur: 3, time: 1000},
+                        page: true,
+                        fieldOptions: [
+                            {
+                                index: true,
+                                title: "序号"
+                            },
+                            {
+                                key: "course_NAME",
+                                title: "课程名"
+                            },
+                            {
+                                key: "course_TIME",
+                                title: "课程时间",
+                                type: "time"
+                            },
+                            {
+                                key: "reservation_STATUS",
+                                title: "状态",
+                                type: "map",
+                                computed: {
+                                    "0": "未开课",
+                                    "1": "完成",
+                                    "2": "取消预约",
+                                    "3": "异常",
+                                }
+                            },
+                            {
+                                key: "update_TIME",
+                                title: "更新时间",
+                                type: "time"
+                            }]
+                    });
+                    uiduck.setData(dataList, false);
+                    defer.resolve();
+                }).promise();
+                }else {
+                    return $.Deferred(function (defer) {
+                        uiduck.setOptions({
+                            templateId: "teaTable",
+                            style: {tbClass: "table text-center table-striped", tdClass: "align-middle"},
+                            // topBar: {templateId: "search", kwLight: true},
+                            // rightTool: {templateId: "teaDemo", title: "操作", width: "100px"},
+                            loading: {icon: "loading", blur: 3, time: 1000},
+                            page: true,
+                            fieldOptions: [
+                                {
+                                    index: true,
+                                    title: "序号"
+                                },
+                                {
+                                    key: "course_NAME",
+                                    title: "课程名"
+                                },
+                                {
+                                    key: "course_TIME",
+                                    title: "课程时间",
+                                    type: "time"
+                                },
+                                {
+                                    key: "course_STU_NBR",
+                                    title: "总人数",
+                                },
+                                {
+                                    key: "course_DONE_STU_NBR",
+                                    title: "实际人数",
+                                },
+                                {
+                                    key: "course_STATUS",
+                                    title: "状态",
+                                    type: "map",
+                                    computed: {
+                                        "0": "可预约",
+                                        "1": "已结束",
+                                        "2": "已取消",
+                                        "3": "异常",
+                                    }
+                                },
+                                {
+                                    key: "update_TIME",
+                                    title: "更新时间",
+                                    type: "time"
+                                },]
+                        });
+                        uiduck.setData(dataList, false);
+                        defer.resolve();
+                    }).promise();
+                }
+            },
+            paddingTeaTable: function (dataList) {
+
+            },
+
+        }
+    })();
+    $(function () {
+        historyPage.init();
+    });
+
+</script>
+</body>
+</html>

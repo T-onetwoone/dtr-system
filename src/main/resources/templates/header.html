@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/js/bootstrap/bootstrap-v4.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/css/issue.css">
+    <link rel="stylesheet" type="text/css" href="/css/reservation.css">
+    <link rel="stylesheet" type="text/css" href="/js/bootstrap/datepicker/bootstrap-datetimepicker.min.css">
+</head>
+<body>
+
+
+
+<div id="header" class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="header">
+    <h3 class="navbar-brand">诊断辅导预约系统</h3>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" id="header-goto-home" href="javascript:;">主页 </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="header-goto-issue" href="javascript:;">发布课程</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="header-goto-reservation" href="javascript:;">预约课程</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="header-goto-evaluate" href="javascript:;">评价系统</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="header-goto-history" href="javascript:;">历史信息</a>
+            </li>
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <ul class="navbar-nav top-user">
+                <li class="dropdown  nav-item">
+                    <a id="header-userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user header-userName">
+                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...
+                        </span>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" id="header-loginOut" href="javascript:;">退出</a>
+                    </div>
+                </li>
+                <li class="nav-item"><a href="javascript:;">帮助</a></li>
+                <li class="nav-item"><a herf="#about">关于我们</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-lg" id="myselfMsg" tabindex="-1"  data-backdrop="static" role="dialog" aria-labelledby="myselfMsgTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myselfMsgTitle">个人信息</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body row" id="self-msg-box-container" style="padding: 1.2rem">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary input-modal-yes">提交更改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/html" id="self-msg-box-art">
+        {{ if data }}
+        <div class="col-md-6">
+            <label for="uid">用户ID：</label>
+            <p class="form-control" id="uid" value="{{data.user_ID}}" readonly="readonly"></p>
+        </div>
+        <div class="col-md-6">
+            <label for="unbr">用户Nbr：</label>
+            <p class="form-control" id="unbr" value="{{data.user_NBR}}" readonly="readonly"></p>
+        </div>
+        <div class="col-md-6">
+            <label for="name">姓名：</label>
+            <p class="form-control" id="name" value="{{data.user_NAME}}" readonly="readonly"></p>
+        </div>
+        <div class="col-md-6">
+            <label for="sex">性别：</label>
+            <p class="form-control" id="sex" value="{{data.user_SEX}}" readonly="readonly"></p>
+        </div>
+        <div class="col-md-6">
+            <label for="type">用户类别：</label>
+            <p class="form-control" id="type" value="{{data.type_NAME}}" readonly="readonly"></p>
+        </div>
+        <div class="col-md-6">
+            <label for="phone">电话:</label>
+            <p class="form-control" id="phone" value="{{data.user_PHONE}}" readonly="readonly"></p>
+        </div>
+        {{/if}}
+    </script>
+</div>
+
+
+</body>
+</html>

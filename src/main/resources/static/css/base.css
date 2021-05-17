@@ -1,0 +1,92 @@
+/*禁止选择页面文本*/
+/** {*/
+    /*-webkit-touch-callout: none;*/
+    /*-webkit-user-select: none;*/
+    /*-khtml-user-select: none;*/
+    /*-moz-user-select: none;*/
+    /*-ms-user-select: none;*/
+    /*user-select: none;*/
+/*}*/
+
+/*禁止选择页面文本结束*/
+
+/*基础样式设置*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* height: 100%; */
+}
+
+body {
+    background-color: #f5f6fa !important;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.clear {
+    display: block;
+    clear: both;
+}
+
+/*基础样式结束*/
+
+/* 顶部公用菜单栏开始 */
+.top-user li.nav-item {
+    padding: 0 0.5rem;
+}
+
+.nav-item a {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+
+
+/* 屏幕适配开始 */
+@media (max-width: 992px) {
+
+    .top-user li.nav-item {
+        padding: .5rem 0;
+        text-align: left;
+    }
+
+}
+
+/* 屏幕适配结束 */
+
+/* 顶部公用菜单栏结束 */
+
+/* 公用container定义开始 */
+.container.function {
+    margin-top: 4.5rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    margin-bottom: 5rem;
+}
+.breadcrumb.function{
+    background-color: #ffffff !important;
+}
+
+/* 公用container定义结束 */
+
+.modal-content{
+    top: 7rem;
+}
+
+.loader-masker {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #333;
+    opacity: 0.7 !important;
+}
+.loader-loading{
+    position: fixed;
+    color: #eeeeee;
+    top: 50%;
+    left: 45%;
+}

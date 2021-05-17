@@ -1,0 +1,40 @@
+.container {
+    padding: 20px 50px;
+}
+
+/* 搜索框开始 */
+.search-box {
+    margin-bottom: 0.8rem;
+}
+
+
+/* 搜索框结束 */
+
+/* 表格开始 */
+.table p {
+    margin: 0 !important;
+}
+
+/* 表格结束 */
+
+
+@media (min-width: 1499px) {
+    .container {
+        max-width: 1200px !important;
+    }
+}
+
+table{
+    margin-top: 1rem;
+}
+tbody{
+    max-height: 400px !important;
+    overflow-y: scroll;
+    display: block;
+    width: 100%;
+}
+tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}

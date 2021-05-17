@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+</head>
+
+
+<link rel="stylesheet" href="/css/login.css">
+<script src="/js/jquery-3.1.1.min.js"></script>
+<body>
+        <!-- <img src="https://i.loli.net/2019/06/11/5cffbf38aeacf19810.jpg" alt="5942.jpg" title="5942.jpg" /> -->
+        <div class="main" id="login-box">
+
+                <div class="loginbox">
+                        <h2>闽江学院智能开关管理平台</h2>
+                               <div class="inputbox">
+                                        <p>用户名</p>
+                                <input type="text">
+                                <p>密码</p>
+                                <input type="password">
+                               </div>
+                                <div class="selectrole">
+                                        <input name="role" type="radio" value="01" checked> 机房管理员
+                                        <input name="role" type="radio" value="02"> 教室管理员
+                                </div>
+                                <button class="btn" id="login-btn">登录</button>
+                                <div class="help">
+                                        <a href="#" data-toggle="modal" data-target="#forget">忘记密码</a>
+                                        <a href="#" data-toggle="modal" data-target="#new">注册账号</a>
+                                </div>
+                </div>
+
+        </div>
+        <!-- 模态窗口 -->
+        <div style="display: none;">
+                <div class="modal fade" id="forget" data-backdrop="static" role="dialog"
+                        aria-labelledby="forgetModalLabel" aria-hidden="true" tabindex="-1">
+                        <div class="modal-dialog modal-md" style="width:300px">
+                                <div class="modal-content">
+                                        <div class="modal-header ">
+                                                <button type="button" class="close" data-dismiss="modal"><span
+                                                                aria-hidden="true">&times;</span><span
+                                                                class="sr-only">Close</span></button>
+                                                <h3 class="modal-title" id="forgetModalLabel">忘记密码</h3>
+                                        </div>
+                                        <div class="modal-body row">
+
+                                                <!-- <label class="col-sm-12 control-label ">工号</label>
+                                                <div class="col-sm-12">
+                                                        <input class="form-control" type="text" placeholder="*必填项">
+
+                                                </div>
+                                                <label class="col-sm-12 control-label">姓名</label>
+                                                <div class="col-sm-12">
+                                                        <input class="form-control" type="text" placeholder="*必填项">
+
+                                                </div>
+                                                <label class="col-sm-12 control-label ">部门</label>
+                                                <div class="col-sm-12">
+                                                        <input class="form-control" type="text" placeholder="*必填项">
+                                                </div>
+                                                -->
+                                                <label class="col-sm-12 control-label ">电话</label>
+                                                <div class="col-sm-12">
+                                                        <input class="form-control" type="text" id="phone1"
+                                                                placeholder="*必填项">
+
+                                                </div>
+
+                                        </div>
+
+                                        <div class="modal-footer">
+
+                                                <button type="submit" class="btn btn-default">确定</button>
+                                                <!-- onclick="checkmse()" -->
+
+                                                <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">关闭</button>
+                                        </div>
+
+                                </div>
+                        </div>
+                </div>
+        </div>
+        <div style="display: none;">
+                <div class="modal fade" id="new" data-backdrop="static" role="dialog" aria-labelledby="newModalLabel"
+                        aria-hidden="true" tabindex="-1">
+                        <div class="modal-dialog modal-md" style="width:300px">
+                                <div class="modal-content">
+                                        <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span
+                                                                aria-hidden="true">&times;</span><span
+                                                                class="sr-only">Close</span></button>
+                                                <h3 class="modal-title" id="newModalLabel">注册账号</h3>
+                                        </div>
+                                        <div class="modal-body row">
+                                                <label class="col-sm-12 control-label ">工号</label>
+                                                <div class="col-sm-12">
+                                                        <input class="form-control" type="text" id="number"
+                                                                placeholder="*必填项">
+
+                                                </div>
+
+                                                <label class="col-sm-12 control-label ">电话</label>
+                                                <div class="col-sm-12">
+                                                        <input class="form-control" type="text" id="phone2"
+                                                                placeholder="*必填项">
+
+                                                </div>
+
+                                        </div>
+
+                                        <div class="modal-footer">
+
+                                                <button type="submit" class="btn btn-default">确定</button>
+                                                <!-- onclick="checkmse()" -->
+
+                                                <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">关闭</button>
+                                        </div>
+
+                                </div>
+                        </div>
+                </div>
+        </div>
+        <script src="/js/bootstarp-3.3.7.min.js"></script>
+        <script src="/js/jquery-3.1.1.min.js"></script>
+        <script>
+                var login = (function () {
+                        var bindEvents =function(){
+                                login.el("#login-btn").off('click').on('click',function(){
+                                        alert('未开放登录！');
+                                });
+                        };
+                        return {
+                                data: {},
+                                el: function (expr) {
+                                        return $('#login-box' + ' ' + (expr ? expr : ''));
+                                },
+                                init: function () {
+                                        bindEvents();
+                                        return;
+                                },
+                                show: function () {
+                                        login.el().show();
+                                        return this;
+                                },
+                                hide: function () {
+                                        login.el().hide();
+                                        return this;
+                                },
+
+                        }
+                })();
+                $(function () {
+                        login.init();
+                })
+        </script>
+</body>
+
+</html>

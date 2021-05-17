@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/js/bootstrap/bootstrap-v4.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/js/swiper/swiper.min.css">
+    <title>首页</title>
+</head>
+
+<body>
+
+<iframe id="homeBackground" height="100%" width="100%" src="/dtr/animate/homeBackground"></iframe>
+<div class="swiper-container" style=" width: 100%;height: 100%;">
+    <header class="header shadow-sm rounded">
+        <div class="top-menu">
+            <ul class="nav justify-content-end">
+                <li class="nav-item dropdownnav-item">
+                    <a class="nav-link" id="userDropdown" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">
+                    <span class="glyphicon glyphicon-user userName header-font">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...
+                    </span>
+                    </a>
+                    <div class="dropdown-menu" id="userMsg" aria-labelledby="userDropdown">
+                        <a class="dropdown-item userName" id="userName" href="javascript:;">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...
+                        </a>
+                        <a class="dropdown-item " id="user" href="javascript:;">个人信息</a>
+                        <a class="dropdown-item " id="userLoginOut" href="javascript:;">退出</a>
+                    </div>
+                </li>
+                <li class="nav-item header"><a class="nav-link header-font top-help">帮助</a></li>
+                <li class="nav-item header"><a class="nav-link header-font top-about">关于我们</a></li>
+            </ul>
+        </div>
+    </header>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide myCarousel text-sm-center font-italic">
+            <div id="output"></div>
+            <div id="title"><h1>欢迎使用课外辅导平台系统</h1>
+                <h3>Welcome to the diagnostic counseling and appointment system</h3></div>
+            <img class="scroll" src="/images/topimges/scroll.png" alt="">
+        </div>
+        <div class="swiper-slide container" style="padding-left:0;">
+            <div class="container menu_box">
+                <div class="row">
+                    <!--/span3-->
+                    <div class="col-md-3">
+                        <div class="grey-box-icon">
+                            <div class="icon-box-top grey-box-icon-pos">
+                                <img src="/images/guide/myself.png" alt="">
+                            </div>
+                            <!--icon box top -->
+                            <h4>个人信息</h4>
+                            <p>编辑您的个人信息</p>
+                            <p><a id="goto-myself" href="javascript:;"><em>点击进入 →</em></a></p>
+                        </div>
+                        <!--grey box -->
+                    </div>
+                    <!--/span3-->
+                     <!--/span3-->
+                    <div class="col-md-3" id="issue-box">
+                        <div class="grey-box-icon">
+                            <div class="icon-box-top grey-box-icon-pos">
+                                <img src="/images/guide/issue.png" alt="">
+                            </div>
+                            <!--icon box top -->
+                            <h4>发布课程</h4>
+                            <p>利用您课余时间指导孩子</p>
+                            <p><a id="goto-issue" href="javascript:;"><em>点击进入 →</em></a></p>
+                        </div>
+                        <!--grey box -->
+                    </div>
+                    <!--/span3-->
+                    <div class="col-md-3" id="reservation-box">
+                        <div class="grey-box-icon">
+                            <div class="icon-box-top grey-box-icon-pos">
+                                <canvas id="clock" width="128" height="128" style="background-color: #ffffff;border-radius: 50%;"></canvas>
+                            </div>
+                            <!--icon box top -->
+                            <h4>预约课程</h4>
+                            <p>根据您的需要预约课程</p>
+                            <p><a id="goto-reservation" href="javascript:;"><em>点击进入 →</em></a></p>
+                        </div>
+                        <!--grey box -->
+                    </div>
+                    <!--/span3-->
+                    <div class="col-md-3">
+                        <div class="grey-box-icon">
+                            <div class="icon-box-top grey-box-icon-pos">
+                                <img src="/images/guide/evaluate.png" alt="">
+                            </div>
+                            <!--icon box top -->
+                            <h4>评价系统</h4>
+                            <p>您的评价很重要!</p>
+                            <p><a id="goto-evaluate" href="javascript:;"><em>点击进入 →</em></a></p>
+                        </div>
+                        <!--grey box -->
+                    </div>
+                    <!--/span3-->
+                    <div class="col-md-3">
+                        <div class="grey-box-icon">
+                            <div class="icon-box-top grey-box-icon-pos">
+                                <img src="/images/guide/history.png" alt="">
+                            </div>
+                            <!--icon box top -->
+                            <h4>历史信息</h4>
+                            <p>您使用系统的历史信息</p>
+                            <p><a id="goto-history" href="javascript:;"><em>点击进入 →</em></a></p>
+                        </div>
+                        <!--grey box -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="swiper-about-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide about-slide">
+                        <div class="about-body">
+                            <h4 style="text-align: center;">
+                                <img src="/images/aboutUs.png" style="height: 50px;"> 简介
+                            </h4>
+                            <div>
+                                <p class="about_txt" style=" text-indent: 2em;">
+                                    诊辅预约系统的主要功能是老师在有空余的时间的时候，在平台上发布自己所教科目的最近的一些知识点难点的一节课程，然后学生可在平台上查看是否有符合自己学习需求的课程，然后在开课前预约课程。除此之外，每一节课之后，学生和老师都有一个互相评论的功能，学生可以写写这堂课老师上的怎么样，自己学到了什么等等，老师则可以写对学生课堂上的学习情况的一个总结，更好的辅导学生学习。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide about-slide">
+                        <div class="about-body">
+                            <h4 style="text-align: center;">
+                                <img src="/images/guide/issue.png" style="height: 50px;"> 发布课程
+                            </h4>
+                            <div>
+                                <p class="about_txt" style=" text-indent: 2em;">
+                                    老师登录系统后，可根据自己的空余时间发布课程，能够查看自己的课程发布记录，查看某一课程的具体学生名单，修改已经发布课程的信息，取消已发布的课程。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide about-slide">
+                        <div class="about-body">
+                            <h4 style="text-align: center;">
+                                <img src="/images/guide/reservation.png" style="height: 50px;"> 预约课程
+                            </h4>
+                            <div>
+                                <p class="about_txt" style=" text-indent: 2em;">
+                                    在系统上查看可预约的课程，根据自己需要选择课程进行预约，能够查看预约课程列表，能够取消预约的课程。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide about-slide">
+                        <div class="about-body">
+                            <h4 style="text-align: center;">
+                                <img src="/images/guide/evaluate.png" style="height: 50px;"> 课程评价
+                            </h4>
+                            <div>
+                                <p class="about_txt" style=" text-indent: 2em;">
+                                    用户-学生完成课程后对老师的授课情况打分，并查看老师对自己的课程学习意见，用户-老师完成课程后对学生的上课情况打分给出课程学习意见，并查看学生的对课程的评价。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide about-slide">
+                        <div class="about-body">
+                            <h4 style="text-align: center;">
+                                <img src="/images/guide/history.png" style="height: 50px;"> 历史记录
+                            </h4>
+                            <div>
+                                <p class="about_txt" style=" text-indent: 2em;">
+                                    用户查看最近一段时间的预约的课程列表，包括完成了的，取消了的课程等
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-about-pagination"></div>
+                <div class="swiper-button-prev"></div><!--左箭头。如果放置在swiper-container外面，需要自定义样式。-->
+                <div class="swiper-button-next"></div><!--右箭头。如果放置在swiper-container外面，需要自定义样式。-->
+                <footer>
+                    <div>
+                        <p class="text-center">123456</p>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+    <!--  modal -->
+    <div class="modal fade" id="passModel" tabindex="-1" data-backdrop="static" role="dialog"
+         aria-labelledby="passModelLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="passModelLabel">修改密码</h5>
+                    <button type="button" class="close pass-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <label for="oldPass">旧密码</label>
+                        <a id="checkOldPass" style="float: right;" href="javascript:;">检查旧密码</a>
+                        <input class="form-control" type="password" id="oldPass" >
+                    </div>
+                    <div>
+                        <label for="newPass">新密码</label>
+                        <input class="form-control" type="password" id="newPass" >
+                    </div>
+                    <div>
+                        <label for="newPassCheck">确认密码</label>
+                        <input class="form-control" type="password" id="newPassCheck" >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary pass-close" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary changePass-yes">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="myselfMsg" tabindex="-1"  data-backdrop="static" role="dialog" aria-labelledby="myselfMsgTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myselfMsgTitle">个人信息</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body row" id="self-msg-box-container" style="padding: 1.2rem">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary input-modal-yes">提交更改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="self-msg-box-art">
+    {{ if data }}
+    <div class="col-md-6">
+        <label for="uid">用户ID：</label>
+        <input class="form-control" id="uid" value="{{data.user_ID}}" readonly="readonly">
+    </div>
+    <div class="col-md-6">
+        <label for="unbr">用户Nbr：</label>
+        <input class="form-control" id="unbr" value="{{data.user_NBR}}" readonly="readonly">
+    </div>
+    <div class="col-md-6">
+        <label for="name">姓名：</label>
+        <input class="form-control" id="name" value="{{data.user_NAME}}" readonly="readonly">
+    </div>
+    <div class="col-md-6">
+        <label for="sex">性别：</label>
+        <select class="form-control" id="sex" value="{{data.user_SEX}}">
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label for="type">用户类别：</label>
+        <input class="form-control" id="type" value="{{data.type_NAME}}" readonly="readonly">
+    </div>
+    <div class="col-md-6">
+        <label for="phone">电话:</label>
+        <input class="form-control" id="phone" value="{{data.user_PHONE}}" >
+    </div>
+    <div class="col-md-12" style="margin-top: 0.8rem">
+        <p><a id="changePass" style="float: right;" href="javascript:;">👉更改密码</a></p>
+    </div>
+  {{/if}}
+</script>
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap/popper.min.js"></script>
+<script src="/js/bootstrap/bootstrap-v4.3.1.min.js"></script>
+<script src="/js/background/quietflow.min.js"></script>
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/timebox/clock-canvas.min.js"></script>
+<script src="/js/app.js"></script>
+
+<script>
+    var home = (function () {
+        var bindEvents = function () {
+            $(window).on('scroll', function () {
+                var scrollTop = $(window).scrollTop();
+                if (scrollTop >= 420) {
+                    home.el('.header').addClass("headervisible");
+                    home.el('.header-font').addClass("font-white");
+                } else {
+                    home.el('.header').removeClass("headervisible"); //如果存在(不存在)就切换(删除)样式
+                    home.el('.header-font').removeClass("font-white"); //如果存在(不存在)就切换(删除)样式
+                }
+            });
+            home.el("#goto-issue").off('click').on('click', function () {
+                App.goIssueBySelf();
+            });
+            home.el("#goto-reservation").off('click').on('click', function () {
+                App.goReservationBySelf();
+            });
+            home.el("#goto-evaluate").off('click').on('click', function () {
+                App.goEvaluateBySelf();
+            });
+            home.el("#goto-history").off('click').on('click', function () {
+                App.goHistoryBySelf();
+            });
+            home.el("#userLoginOut").off('click').on('click', function () {
+                var uName = home.el('#userMsg').data('uName');
+                var uNbr = home.el('#userMsg').data('uNbr');
+                App.loginOut(uNbr, uName);
+            });
+            home.el("#goto-myself").off("click").on("click",function () {
+                $.loadJSON('/dtr/user/getUserMsg').done(function (data) {
+                    if (!App.checker(data)) {
+                        return;
+                    } else {
+                        var userData = data.user;
+                        home.paddingSelfMsgBox(userData)
+                            .then(function(){home.el("#myselfMsg").modal('show');return this;})
+                            .then(function(){home.el("#myselfMsg").data('user',userData);return this;})
+                            .then(function(){home.modelCheck();return this;});
+                    }
+                });
+            });
+            // 偷懒直接给复制一份
+            home.el("#user").off("click").on("click",function () {
+                $.loadJSON('/dtr/user/getUserMsg').done(function (data) {
+                    if (!App.checker(data)) {
+                        return;
+                    } else {
+                        var userData = data.user;
+                        home.paddingSelfMsgBox(userData)
+                            .then(function(){home.el("#myselfMsg").modal('show');return this;})
+                            .then(function(){home.el("#myselfMsg").data('user',userData);return this;})
+                            .then(function(){home.modelCheck();return this;});
+                    }
+                });
+            });
+    };
+        return {
+            data: {},
+            el: function (expr) {
+                return $(expr ? expr : 'body');
+            },
+            init: function () {
+                App.getUserMsg(function (uNbr, uName, type) {
+                    home.el('#userMsg').data("uNbr", uNbr);
+                    home.el('.userName').html(uName + "(" + type + ")");
+                    home.el('#userMsg').data("uName", uName);
+                    home.el('#userMsg').data("type", type);
+                    if(type === "教师" ){
+                        home.el('#reservation-box').hide();
+                    }else {
+                        home.el('#issue-box').hide();
+                    }
+                }).then(function () {App.setWhere('home');return this}).then(function () { home.pageCssInit();return this}).then(function () { bindEvents();return this});
+                return this
+            },
+            show: function () {
+                home.el().show();
+                return this;
+            },
+            hide: function () {
+                home.el().hide();
+                return this;
+            },
+            swiperAllInit:function (){
+                return $.Deferred(function (defer) {
+                    var swiperAll = new Swiper('.swiper-container', {
+                        direction: 'vertical',
+                        mousewheel: {
+                            releaseOnEdges: true,
+                            sensitivity: 1.2,
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                            renderBullet: function (index, className) {
+                                // <img src="/images/Angrybirds2.png" style="height: 30px;width: 30px">
+                                return '<span class=" birds  ' + className + '"></span>';
+                            },
+                        },
+                    });
+                    home.el('.top-help').off('click').on('click', function () {
+                        swiperAll.slideTo(3);
+                    });
+                    defer.resolve();
+                }).promise();
+            },
+            swiperAboutInit:function (){
+                return $.Deferred(function (defer) {
+                    var swiperAbout = new Swiper('.swiper-about-container', {
+                        direction: 'horizontal',
+                        loop: true,
+                        autoplay: {
+                            delay: 5000,
+                            stopOnLastSlide: false,
+                        },
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        pagination: {
+                            el: '.swiper-about-pagination',
+                            clickable: true,
+                        },
+                    });
+                    defer.resolve();
+                }).promise();
+            },
+            clockInit:function (){
+                var type = home.el('#userMsg').data("type");
+                if (type !== "教师"){
+                    return $.Deferred(function (defer) {
+                        $("#clock").drawClock(
+                            //{
+                            // hCol: 'xxx',// 时针颜色
+                            // mCol: 'xxx', // 时针颜色
+                            // sCol: 'xxx', // 时针颜色
+                            // isNumCol: 'xxx', // 数字所在的点颜色
+                            // noNumCol: 'xxx', // 非数字所在的点颜色
+                            // dCol: 'xxx', // 中心圈颜色
+                            //}
+                        );
+                        defer.resolve();
+                    }).promise();
+                }else {
+                    return $.Deferred(function (defer) {
+                        defer.resolve();
+                    }).promise();
+                }
+
+
+            },
+            pageCssInit: function () {
+                home.clockInit().then(function () {home.swiperAllInit()}).then(function(){home.swiperAboutInit();return this;});
+            },
+            paddingSelfMsgBox:function (data) {
+                return $.Deferred(function (defer) {
+                    home.el("#self-msg-box-container").html(template("self-msg-box-art",{data:data}));
+                    defer.resolve();
+                }).promise();
+            },
+            modelCheck:function () {
+                home.el("#changePass").off("click").on("click",function () {
+                    home.el("#passModel").modal('show');
+                });
+                home.el("#checkOldPass").off("click").on("click",function () {
+                    var oldPass = home.el("#oldPass").val();
+                    var user = home.el("#myselfMsg").data('user');
+                    var pass = user.user_PASS;
+                    if (oldPass == pass){
+                        App.topAlert("旧密码正确！",1)
+                    }else {
+                        App.topAlert("旧密码错误！",2)
+                    }
+                });
+                home.el(".changePass-yes").off("click").on("click",function () {
+                    var pass = home.el("#newPass").val();
+                    var passCheck = home.el("#newPassCheck").val();
+                    if (pass != passCheck){
+                        App.topAlert("俩次输入密码不同！",2);
+                        return;
+                    }
+                    if (pass == ''){
+                        App.topAlert("密码不能为空！",2);
+                        return;
+                    }
+                    if (pass.length<6){
+                        App.topAlert("密码不能小于6位！",2);
+                        return;
+                    }
+                    $.loadJSON('/dtr/user/changeSelfMsg',{
+                        pass:pass
+                    }).done(function (data) {
+                        if (!App.checker(data)) {
+                            return;
+                        } else {
+                            App.alert("更改成功",'');
+                            home.el("#passModel").modal('hide');
+                            home.passModelClear();
+                        }
+                    })
+                });
+                home.el(".pass-close").off("click").on("click",function () {
+                    home.el("#passModel").modal('hide');
+                    home.passModelClear();
+                });
+                home.el(".input-modal-yes").off('click').on('click',function () {
+                    var sex = home.el('#sex').val();
+                    var phone = home.el('#phone').val();
+                    $.loadJSON('/dtr/user/changeSelfMsg',{
+                        sex:sex,
+                        phone:phone
+                    }).done(function (data) {
+                        if (!App.checker(data)){
+                            return;
+                        }else {
+                            App.alert("更改成功",'');
+                        }
+                    })
+                });
+            },
+            passModelClear:function () {
+                home.el("#newPass").val('');
+                home.el("#newPassCheck").val('');
+                home.el("#oldPass").val('')
+            }
+        }
+    })();
+    $(function () {
+        home.init();
+    })
+</script>
+</body>
+
+</html>

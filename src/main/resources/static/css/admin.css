@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* height: 100%; */
+}
+
+body {
+    width: 100%;
+    background-color: #f3f3f3;
+}
+
+ul {
+    list-style-type: none;
+}
+
+p, ul {
+    margin-bottom: 0;
+}
+.container{
+    max-width: 1300px;
+}
+
+#userBox li {
+    margin-right: 1.5rem;
+    float: left;
+}
+
+.clear {
+    display: block;
+    clear: both;
+}
+
+.show-box {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background-color: #FFFFFF;
+    /*min-height: 270px;*/
+    border-radius: 0.3rem;
+    padding-top: 1.8rem;
+    padding-bottom: 1.8rem;
+    /* max-width: 1240px; */
+}
+
+.col-md-6 {
+    display: inline-block;
+}
+
+#number-show-box > .content {
+    text-align: center;
+    display: inline-block;
+}
+
+.col-md-7 > .content {
+    /*margin: 3rem 0;*/
+    padding: 0 1.2rem;
+    overflow: auto;
+}
+
+.ibox h1 {
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.ibox h5 {
+    font-size: 1.2rem;
+}
+
+.ibox {
+    height: 130px;
+    width: 95px;
+    padding: 0.9rem;
+    text-align: center;
+    top: 0.8rem;
+    border-color: #ffffff;
+    border-radius: 0.5rem;
+    display: inline-block;
+    color: #ffffff;
+}
+
+#show-pie-chart {
+    display: inline-block;
+}
+
+#input-select-box > div {
+    text-align: center;
+    color: #ffffff;
+}
+
+#top-show-box {
+    width: 100% !important;
+    padding: 0 2rem;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+#top-show-box > div {
+    padding: 0 2rem;
+}
+
+div#number-show-box {
+    /*width: 50%;*/
+    padding-top: 2rem;
+    height: 430px;
+}
+
+div#courses-show-box-container {
+    height: 260px;
+}
+
+div#future-box {
+    height: 430px;
+}
+table{
+    margin-top: 1rem;
+}
+#show-history-box-container{
+    max-height: 300px !important;
+    overflow-y: scroll;
+    display: block;
+    width: 100%;
+}
+#show-issue-box-container{
+    height: 180px !important;
+    overflow-y: scroll;
+    display: block;
+    width: 100%;
+}
+.table-set tr{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+#show-tea-list-container,#show-stu-list-container,#show-reset-list-container{
+    overflow-y: scroll;
+    display: block;
+    width: 100%;
+    max-height: 380px !important;
+}
+div#msg-input-box>div{
+    margin: 0.7rem 0;
+}
+button#msg-input-btn {
+    width: 120px;
+    font-size: 20px;
+}
+#show-courseType-list-container{
+    overflow-y: scroll;
+    display: block;
+    width: 100%;
+    max-height: 150px !important;
+}

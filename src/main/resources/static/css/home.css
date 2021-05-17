@@ -1,0 +1,252 @@
+html, body {
+    position: relative;
+    height: 100%;
+}
+
+/* 头部样式开始 */
+
+header {
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    z-index: 5;
+    cursor:default !important;
+}
+
+.headervisible {
+    background-color: #3E3D3D;
+}
+
+.font-white {
+    color: white !important;
+
+}
+
+header div {
+    display: inline-block;
+}
+
+.top-menu {
+    float: right;
+    width: auto;
+    height: 80px;
+    margin-right: 200px;
+}
+
+.top-menu ul {
+    line-height: 62px;
+}
+
+.userNamebtn {
+    float: right;
+}
+
+/* 头部样式结束 */
+
+/* 顶部图片开始 */
+
+div#title {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    bottom: 5rem;
+}
+
+.scroll {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -12px;
+}
+
+.birds {
+    /*background: rgba(100%, 100%, 100%, 0.1) !important;*/
+    height: 48px !important;
+    width: 48px !important;
+    margin: 25px 0 !important;
+    background: url("/images/angrybirds_48px.png") top !important;
+    background-size: cover;
+    border-radius: 12% !important;
+}
+
+/* 顶部图片结束 */
+
+
+/* 功能区域开始 */
+.container.menu_box {
+    margin-top: 25px;
+}
+
+.grey-box-icon {
+    background: #f6f6f6;
+    padding: 15px 20px 20px 20px;
+    text-align: center;
+    margin-top: 113px;
+    position: relative;
+    min-height: 270px;
+    border-radius: 0.3rem;
+}
+
+.icon-box-top.grey-box-icon-pos {
+    height: 128px;
+}
+
+.grey-box-icon-pos {
+    margin-top: -88px;
+    margin-bottom: 31px;
+}
+
+.container.menu_box {
+    position: absolute;
+    top: 25%;
+    /*left: 15%;*/
+}
+
+/* 功能区域结束 */
+
+/* 系统简介开始 */
+
+/* 于2020-03-24已弃用 */
+.hseparator {
+    margin: 0;
+}
+
+.about {
+    width: 100%;
+    padding: 140px 0 0 0;
+    background: #fafafa;
+    text-align: center;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    /* width: 1100px; */
+    /* margin: 0 auto; */
+    margin: 5.5rem auto;
+    position: relative;
+    border-radius: 0.8rem;
+}
+
+.about .about_txt {
+    width: 70%;
+    color: #797979;
+    font-family: "opensans-regular", arial;
+    font-size: 16px;
+    margin: 60px auto;
+    line-height: 30px;
+}
+
+.about .timeline .column {
+    width: 100%;
+    overflow: hidden;
+    text-align: left;
+}
+
+.about .timeline .right_row.first,
+.about .timeline .left_row.first {
+    padding-top: 100px;
+}
+
+.about .timeline .right_row.last,
+.about .timeline .left_row.last {
+    padding-bottom: 140px;
+}
+
+.about .timeline .right_row {
+    width: 50%;
+    float: right;
+    padding: 60px 30px 0 30px;
+    border-left: 2px solid #efeeee;
+    position: relative;
+}
+
+.about .timeline .left_row {
+    width: 50.2%;
+    text-align: right;
+    border-right: 2px solid #efeeee;
+    float: left;
+    padding: 60px 30px 0 30px;
+    position: relative;
+}
+
+.about .timeline .right_row .bullet_point {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 60px;
+    margin-left: -12px;
+}
+
+.about .timeline .left_row .bullet_point {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 60px;
+    margin-right: -12px;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* 于2020-03-24已弃用 */
+
+.swiper-button-prev, .swiper-button-next {
+    position: absolute;
+    margin: 5rem;
+}
+.about-slide {
+    top: 10rem;
+    padding:0 13rem;
+}
+.swiper-about-pagination{
+    bottom: 150px !important;
+    position: absolute;
+    width: 100%;
+    /* padding: 0 50px; */
+    /* left: 50%; */
+    text-align: center;
+}
+.about-body{
+    padding: 30px 50px;
+    background: #fbfbfb;
+    border-radius: 15px;
+    height: 370px !important;
+    overflow: auto;
+}
+.about-body p{
+    font-size: 22px;
+}
+
+/* 系统简介结束 */
+
+/* 页面尾部开始 */
+
+footer {
+    background-color: #3E3D3D;
+    width: 100%;
+    padding: 45px 0;
+    bottom: 0;
+    position: absolute;
+}
+
+footer p {
+    color: white;
+    margin-bottom: 0 !important;
+}
+
+/* 页面尾部结束 */
+
+#homeBackground{
+    position: fixed;
+}
+#title > h1 {
+    font-size: 3.7rem;
+    /* font-style: oblique; */
+    letter-spacing: 0.5rem;
+}
+#title > h3 {
+    font-size: 1.2rem;
+    font-family: SimHei !important;
+}
+h

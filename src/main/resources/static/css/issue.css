@@ -1,0 +1,44 @@
+/* 顶部结束 */
+
+/* 功能区开始 */
+.container {
+    padding: 20px 50px;
+}
+
+.container .row {
+    padding: 0 10px 10px;
+}
+
+.container h5 {
+    font-size: 1rem;
+    display: inline-block;
+}
+
+ol.breadcrumb {
+    background-color: #ffffff;
+}
+
+.row>div {
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+
+.table p{
+    margin: 0 !important;
+}
+table{
+    margin-top: 1rem;
+}
+#issueCourseHistory tbody ,#issueDoneCourseHistory tbody{
+    max-height: 400px !important;
+    overflow-y: scroll;
+    display: block;
+    width: 100%;
+}
+#issueCourseHistory tr,#issueDoneCourseHistory tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* 功能区结束 */

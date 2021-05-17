@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>发布课程</title>
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/js/bootstrap/bootstrap-v4.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/issue.css">
+    <link rel="stylesheet" type="text/css" href="/js/bootstrap/datepicker/bootstrap-datetimepicker.min.css">
+</head>
+
+<body>
+<div th:replace="header :: header"></div>
+<div class="container function">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link issueCourse active" id="issueClass-tab" data-toggle="tab" href="#issueCourse"
+               role="tab" aria-controls="reservationsClass" aria-selected="true">发布课程</a>
+            <a class="nav-item nav-link issueCourse" id="issueCourse-tab" data-toggle="tab" href="#issueCourseHistory"
+               role="tab" aria-controls="issueCourseHistory" aria-selected="false">可预约课程记录</a>
+            <a class="nav-item nav-link issueCourse" id="issueDoneCourse-tab" data-toggle="tab"
+               href="#issueDoneCourseHistory"
+               role="tab" aria-controls="issueDoneCourseHistory" aria-selected="false">已完成课程记录</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade  p-2 show active" id="issueCourse" role="tabpanel"
+             aria-labelledby="issueClass-tab">
+            <div class="row">
+                <!--<p class="alert alert-warning col-md-12 text-xl-center" role="alert"><button type="button" class="close"-->
+                <!--data-dismiss="alert" aria-hidden="true">-->
+                <!--&times;-->
+                <!--</button>请合理安排时间!</p>-->
+                <div class="col-md-4 text-xl-center classTime">
+                    <h5><img src="/images/classTime.png" alt=""> 开始时间</h5>
+                    <input class="form-control" id="settime" type="text" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 text-xl-center classType">
+                    <h5><img src="/images/classType.png" alt=""> 课程类型</h5>
+                    <select class="form-control" name="classType" id="classType">
+
+                    </select>
+                </div>
+                <div class="col-md-4 text-xl-center stuNbr">
+                    <h5><img src="/images/classType.png" alt=""> 课程学生人数</h5>
+                    <input class="form-control" name="classType" id="stuNbr" type="number"/>
+                </div>
+                <div class="col-md-12 className">
+                    <h5><img src="/images/className.png" alt=""> 课程名称</h5>
+                    <input class="form-control" id="className" type=""/>
+                </div>
+                <div class="col-md-12 classContent">
+                    <h5><img src="/images/classContent.png" alt=""> 课程内容</h5>
+                    <textarea class="form-control" id="classContent" cols="30" rows="7" style="resize:none"></textarea>
+                </div>
+            </div>
+            <div class="col-md-12 text-right">
+                <button class="btn btn-secondary" id="commitClassMsg" data-toggle="tooltip" data-placement="top"
+                        title="请您务必核实输入！">提交
+                </button>
+            </div>
+        </div>
+        <div class="tab-pane fade  p-2 show " id="issueCourseHistory" role="tabpanel"
+             aria-labelledby="issueCourse-tab">
+            <table class="table text-center table-striped  shadow">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">序号</th>
+                    <th scope="col">时间</th>
+                    <th scope="col">类型</th>
+                    <th scope="col">名称</th>
+                    <th scope="col">已预约/总人数</th>
+                    <th scope="col">操作</th>
+                </tr>
+                </thead>
+                <tbody id="issue-class-msg-container">
+                <tr>
+                    <td colspan='6' style='text-align: center'><span class="glyphicon glyphicon-user">
+                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>加载中...</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade  p-2 show " id="issueDoneCourseHistory" role="tabpanel"
+             aria-labelledby="issueDoneCourse-tab">
+            <table class="table text-center table-striped  shadow">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">序号</th>
+                    <th scope="col">时间</th>
+                    <th scope="col">类型</th>
+                    <th scope="col">名称</th>
+                    <th scope="col">已预约/总人数</th>
+                    <th scope="col">操作</th>
+                </tr>
+                </thead>
+                <tbody id="issue-done-class-msg-container">
+                <tr>
+                    <td colspan='6' style='text-align: center'><span class="glyphicon glyphicon-user">
+                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>加载中...</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<!-- 模态框开始 -->
+<div class="modal fade" id="stuNameListModel" tabindex="-1" role="dialog" aria-labelledby="stuNameListModelLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="stuNameListModelLabel">学生列表</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-bottom: 0;">
+                <table class="table text-center table-striped  shadow">
+                    <thead>
+                    <tr>
+                        <th scope="col">序号</th>
+                        <th scope="col">学号</th>
+                        <th scope="col">姓名</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="stu-list-msg-container">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <!--                <button type="button" class="btn btn-primary">Save changes</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="checkInput" tabindex="-1" data-backdrop="static" role="dialog"
+     aria-labelledby="checkInputTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkInputTitle">检查信息</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>开始时间：<span class="inputTIme modal-in"></span></p>
+                <p>课程类型：<span class="inputType modal-in"></span></p>
+                <p>课程名称：<span class="inputName modal-in"></span></p>
+                <p>课程内容：<span class="inputContent modal-in"></span></p>
+                <p>课程最大人数：<span class="inputStuNbr modal-in"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary input-modal-no" data-dismiss="modal">取消提交</button>
+                <button type="button" class="btn btn-primary input-modal-yes">确定提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="courseMsgModel" tabindex="-1" data-backdrop="static" role="dialog"
+     aria-labelledby="courseMsgModelLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="courseMsgModelLabel">修改课程信息</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-bottom: 0;">
+                <table class="table text-center table-striped  shadow">
+                    <tbody id="course-msg-container">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary courseMsg-yes">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框结束 -->
+
+<!-- 数据模板开始 -->
+<script type="text/html" id="issue-class-msg-art">
+    {{ if courseList && courseList.length>0 }}{{each courseList}}
+    <tr>
+        <th class="align-middle" scope="row">{{$index+1}}</th>
+        <td class="align-middle">{{$value.course_TIME | formatDateString }}</td>
+        <td class="align-middle">{{$value.course_TYPE_NAME}}</td>
+        <td class="align-middle">{{$value.course_NAME}}</td>
+        <td class="align-middle">{{$value.course_DONE_STU_NBR}}/{{$value.course_STU_NBR}}</td>
+        <!--<td class="align-middle">{{$value.place}}</td>-->
+        <td class="align-middle">
+            <p><a href="javascript:;" class="text-decoration-none font-italic compile-btn"
+                  data-courseid="{{$value.course_ID}}">编辑信息</a>
+            </p>
+            <p><a href="javascript:;" class="text-decoration-none font-italic student-det-btn"
+                  data-courseid="{{$value.course_ID}}">预约详情</a></p>
+        </td>
+    </tr>
+    {{/each}}{{/if}}
+</script>
+<script type="text/html" id="issue-done-class-msg-art">
+    {{ if courseDoneList && courseDoneList.length>0 }}{{each courseDoneList}}
+    <tr>
+        <th class="align-middle" scope="row">{{$index+1}}</th>
+        <td class="align-middle">{{$value.course_TIME | formatDateString }}</td>
+        <td class="align-middle">{{$value.course_TYPE_NAME}}</td>
+        <td class="align-middle">{{$value.course_NAME}}</td>
+        <td class="align-middle">{{$value.course_DONE_STU_NBR}}/{{$value.course_STU_NBR}}</td>
+        <!--<td class="align-middle">{{$value.place}}</td>-->
+        <td class="align-middle">
+            <p><a href="javascript:;" class="text-decoration-none font-italic student-done-det-btn"
+                  data-courseid="{{$value.course_ID}}">学生名单</a></p>
+        </td>
+    </tr>
+    {{/each}}{{/if}}
+</script>
+<script type="text/html" id="stu-list-msg-art">
+    {{ if stuList && stuList.length>0 }}{{each stuList}}
+    <tr>
+        <th class="align-middle" scope="row">{{$index+1}}</th>
+        <td class="align-middle">{{$value.USER_NBR}}</td>
+        <td class="align-middle">{{$value.USER_NAME}}</td>
+        <td class="align-middle">
+            <p><a href="javascript:;" class="detailed text-decoration-none student-detMsg"
+                  data-stunbr="{{$value.USER_NBR}}">预约历史</a>
+            </p>
+        </td>
+    </tr>
+    {{/each}}{{/if}}
+</script>
+<script type="text/html" id="course-msg-art">
+    {{ if courseDetail}}
+    <tr>
+        <td class="align-middle">课程名</td>
+        <td class="align-middle"><input class="form-control" id="course_name" type="text"
+                                        value="{{courseDetail.course_NAME}}"/></td>
+    </tr>
+    <tr>
+        <td class="align-middle">课程类型</td>
+        <td class="align-middle"><input class="form-control" type="text" id="course_typeName"
+                                        value="{{courseDetail.course_TYPE_NAME}}" readonly="readonly"></td>
+    </tr>
+    <tr>
+        <td class="align-middle">课程详细内容</td>
+        <td class="align-middle"><input class="form-control" type="text" id="course_detail"
+                                        value="{{courseDetail.course_DETAIL}}"></td>
+    </tr>
+    <tr>
+        <td class="align-middle">课程老师</td>
+        <td class="align-middle"><input class="form-control" type="text" id="course_teacherName"
+                                        value="{{courseDetail.course_TEACHER_NAME}}" readonly="readonly"></td>
+    </tr>
+    <tr>
+        <td class="align-middle">课程时间</td>
+        <td class="align-middle"><input class="form-control" type="text" id="course_time"
+                                        value="{{courseDetail.course_TIME | formatDateString}}"></td>
+    </tr>
+    <tr>
+        <td colspan='2' style='text-align: center'>
+            <p><a href="javascript:;" class="text-decoration-none del-course"
+                  data-courseid="{{courseDetail.course_ID}}">取消课程</a>
+            </p>
+        </td>
+    </tr>
+    {{/if}}
+</script>
+<script type="text/html" id="course-type-art">
+    {{ if typeList && typeList.length>0 }}{{each typeList}}
+        <option value="{{$value.COURSE_TYPE_NAME}}">{{$value.COURSE_TYPE_NAME}}</option>
+    {{/each}}{{/if}}
+</script>
+
+<!-- 数据模板结束 -->
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap/popper.min.js"></script>
+<script src="/js/bootstrap/bootstrap-v4.3.1.min.js"></script>
+<script src="/js/bootstrap/datepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap/datepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    // template 时间日期格式功能
+    template.helper('formatDateString', function (value) {
+        return new Date(value).format('yyyy-MM-dd hh:mm:ss');
+    });
+    var issue = (function () {
+        var bindEvents = function () {
+            issue.el("[data-toggle='tooltip']").tooltip();
+            issue.el('#commitClassMsg').off('click').on('click', function () {
+                var time = issue.el('#settime').val();
+                if (time == '') {
+                    App.alert('错误', '课程时间不能为空！', 2);
+                    return;
+                }
+                var type = issue.el('#classType').val();
+                if (type == '') {
+                    App.alert('错误', '课程类型不能为空！', 2);
+                    return;
+                }
+                var name = issue.el('#className').val();
+                if (name == '') {
+                    App.alert('错误', '课程名称不能为空！', 2);
+                    return;
+                }
+                var nbr = issue.el('#stuNbr').val();
+                if (nbr == '') {
+                    App.alert('错误', '课程最大人数不能为空！', 2);
+                    return;
+                }
+                if (nbr > 10) {
+                    App.alert('错误', '课程最大人数不能超过10人！', 2);
+                    return;
+                }
+                var cont = issue.el('#classContent').val();
+                if (cont == '') {
+                    App.alert('错误', '课程内容不能为空！', 2);
+                    return;
+                }
+                issue.el('.inputTIme').html(time);
+                issue.el('.inputType').html(type);
+                issue.el('.inputName').html(name);
+                issue.el('.inputStuNbr').html(nbr);
+                issue.el('.inputContent').html(cont);
+                $('#checkInput').modal('show');
+            });
+            issue.el('.input-modal-yes').off('click').on('click', function () {
+                var classTime = issue.el('#settime').val() + ':00';
+                var classType = issue.el('#classType').val();
+                var className = issue.el('#className').val();
+                var stuNbr = issue.el('#stuNbr').val();
+                var classContent = issue.el('#classContent').val();
+                $.loadJSON('/dtr/issue/insert', {
+                    courseName: className,
+                    typeName: classType,
+                    courseDetail: classContent,
+                    courseStuNbr: stuNbr,
+                    courseTime: classTime
+                }).done(function (data) {
+                    if (!App.checker(data)) {
+                        return;
+                    } else {
+                        App.alert("提交成功", '', 1, function () {
+                            issue.inputClear();
+                        });
+                        return;
+                    }
+                });
+                $('#checkInput').modal('hide');
+                issue.el('.modal-in').html('');
+            });
+            issue.el('.issueCourse').off('click').on('click', function () {
+                issue.getCourseList();
+            });
+        };
+        return {
+            el: function (expr) {
+                return $(expr ? expr : 'body');
+            },
+            init: function () {
+                App.getUserMsg(function (uNbr, uName, uType) {
+                    if (!App.isTeacher(uType)) {
+                        App.alert("错误", "当前用户无权限", 2, function () {
+                            App.goHomeBySelf();
+                        })
+                    }
+                }).then(function () {App.setWhere("issue");return this})
+                    .then(function () {App.setInputBoxForTime('#settime');return this})
+                    .then(function () {issue.getCourseType();return this})
+                    .then(function () {bindEvents();return this});
+                return this
+            },
+            inputClear: function () {
+                issue.el('#settime').val('');
+                issue.el('#classType').val('语文');
+                issue.el('#className').val('');
+                issue.el('#stuNbr').val('');
+                issue.el('#classContent').val('');
+                issue.el('.inputTIme').html('');
+                issue.el('.inputType').html('');
+                issue.el('.inputName').html('');
+                issue.el('.inputStuNbr').html('');
+                issue.el('.inputContent').html('');
+            },
+            getCourseList: function () {
+                $.loadJSON('/dtr/issue/getSelfIssue').done(function (data) {
+                    if (!App.checker(data)) {
+                        return;
+                    } else {
+                        var courseList = data.courseList;
+                        var courseDoneList = data.courseDoneList;
+                        if (!data.noIssueList == '') {
+                            issue.el("#issue-class-msg-container").html("<tr><td colspan='6' style='text-align: center'>" + data.noIssueList + "</td></tr>")
+                        } else {
+                            issue.el("#issue-class-msg-container").html(template('issue-class-msg-art', {courseList: courseList}))
+                        }
+                        if (!data.noIssueDoneList == '') {
+                            issue.el("#issue-done-class-msg-container").html("<tr><td colspan='6' style='text-align: center'>" + data.noIssueDoneList + "</td></tr>")
+                        } else {
+                            issue.el("#issue-done-class-msg-container").html(template('issue-done-class-msg-art', {courseDoneList: courseDoneList}))
+                        }
+                        issue.panelClick();
+                    }
+                });
+            },
+            panelClick: function () {
+                issue.el('.student-det-btn').off('click').on('click', function () {
+                    var courseID = $(this).data('courseid');
+                    $.loadJSON('/dtr/issue/getCourseStu', {
+                        courseID: courseID
+                    }).done(function (data) {
+                        if (!App.checker(data)) {
+                            return;
+                        } else {
+                            var stuNameList = data.userList;
+                            if (stuNameList.length === 0) {
+                                App.topAlert("暂无预约", 4);
+                                return;
+                            }
+                            // 先填充数据
+                            issue.paddingStuNameList(stuNameList)
+                                .then(function () {
+                                    issue.el('#stuNameListModel').modal('show');
+                                    return this;
+                                })
+                                .then(function () {
+                                    issue.panelClick();
+                                    return this;
+                                }); //后置触发
+                        }
+                    });
+                });
+                issue.el('.student-done-det-btn').off('click').on('click', function () {
+                    var courseID = $(this).data('courseid');
+                    $.loadJSON('/dtr/issue/getDoneCourseStu', {
+                        courseID: courseID
+                    }).done(function (data) {
+                        if (!App.checker(data)) {
+                            return;
+                        } else {
+                            var stuNameList = data.userList;
+                            if (stuNameList.length === 0) {
+                                App.topAlert("暂无记录", 4);
+                                return;
+                            }
+                            // 先填充数据
+                            issue.paddingStuNameList(stuNameList)
+                                .then(function () {
+                                    issue.el('#stuNameListModel').modal('show');
+                                    return this;
+                                })
+                                .then(function () {
+                                    issue.panelClick();
+                                    return this;
+                                }); //后置触发
+                        }
+                    });
+                });
+                issue.el('.student-detMsg').off('click').on('click', function () {
+                    var stuNbr = $(this).data('stunbr');
+                    $.loadJSON('/dtr/eval/view-stu-history', {
+                        stuNbr: stuNbr
+                    }).done(function (data) {
+                        if (!App.checker(data)) {
+                            return;
+                        } else {
+                            var stuHistory = data.stuHistory;
+                            if (stuHistory == '' || stuHistory == null){
+                                return  App.topAlert("历史为空", 4);
+                            }
+                            var h_html = "<table id='stu-history' class=\"table text-center table-striped  shadow\">\n" +
+                                "                <thead class=\"thead-dark\">\n" +
+                                "                <tr>\n" +
+                                "                    <th scope=\"col\">课程名</th>\n" +
+                                "                    <th scope=\"col\">老师名</th>\n" +
+                                "                    <th scope=\"col\">评语</th>\n" +
+                                "                </tr>\n" +
+                                "                </thead>\n" +
+                                "                <tbody>\n";
+                            var b_html = "</tbody></table>";
+                            for (let i = 0; i < stuHistory.length; i++) {
+                                h_html = h_html +  '<tr><td>'+ stuHistory[i].COURSE_NAME + '</td><td>' + stuHistory[i].COURSE_TEACHER_NAME + '</td><td>' + stuHistory[i].EVALUATE_DETAIL+'</td></tr>';
+                            }
+                            Swal.fire({
+                                title: '<strong>预约历史</strong>',
+                                html:h_html + b_html,
+                                showCloseButton: false,
+                                showCancelButton: false,
+                                width: 900,
+                            })
+                        }
+                    });
+                });
+                issue.el('.compile-btn').off('click').on('click', function () {
+                    var courseID = $(this).data('courseid');
+                    $.loadJSON('/dtr/rese/getCourseDet', {
+                        courseID: courseID
+                    }).done(function (data) {
+                        if (!App.checker(data)) {
+                            return;
+                        } else {
+                            // 先填充数据
+                            issue.paddingCourseDetail(data.courseDet)
+                                .then(function () {
+                                    issue.el('#courseMsgModel').modal('show');
+                                    return this
+                                })
+                                .then(function () {
+                                    issue.panelClick();
+                                    return this;
+                                }); //后置触发
+                        }
+                    });
+                });
+                issue.el('.courseMsg-yes').off('click').on('click', function () {
+                    var courseID = issue.el('.del-course').data("courseid");
+                    var course_name = issue.el("#course_name").val();
+                    var course_detail = issue.el("#course_detail").val();
+                    var course_time = issue.el("#course_time").val() + ':00';
+                    $.loadJSON('/dtr/issue/updateCourse', {
+                        courseID: courseID,
+                        courseName: course_name,
+                        courseDetail: course_detail,
+                        courseTime: course_time
+                    }).done(function (data) {
+                        if (!App.checker(data)) {
+                            return;
+                        } else {
+                            App.alert("修改成功", "", 1, function () {
+                                issue.getCourseList()
+                            });
+                        }
+                    });
+                });
+                issue.el('.del-course').off('click').on('click', function () {
+                    var courseID = $(this).data('courseid');
+                    App.selectAlert("操作提示", "确定取消吗？", 3, function () {
+                        $.loadJSON('/dtr/issue/cancelCourse', {
+                            courseID: courseID
+                        }).done(function (data) {
+                            if (!App.checker(data)) {
+                                return;
+                            } else {
+                                App.alert("取消成功", "", 1, function () {
+                                    issue.getCourseList()
+                                });
+                            }
+                        });
+                    });
+                });
+            },
+            // 填充课程学生名单列表
+            paddingStuNameList: function (userList) {
+                return $.Deferred(function (defer) {
+                    issue.el("#stu-list-msg-container").html(template('stu-list-msg-art', {stuList: userList}));
+                    defer.resolve();
+                }).promise();
+            },
+            paddingCourseDetail: function (courseMsg) {
+                return $.Deferred(function (defer) {
+                    issue.el("#course-msg-container").html(template('course-msg-art', {courseDetail: courseMsg}));
+                    App.setInputBoxForTime('#course_time');
+                    defer.resolve();
+                }).promise();
+            },
+            getCourseType: function () {
+                $.loadJSON('/dtr/issue/getType').done(function (data) {
+                    if (!App.checker(data)) {
+                        return;
+                    } else {
+                        var typeList = data.typeList;
+                        if (typeList === undefined || typeList === null) {
+                            App.topAlert("初始化异常！请重新刷新！");
+                        }
+                        issue.el("#classType").html(template('course-type-art',{typeList:typeList}))
+                    }
+                });
+            }
+        }
+    })();
+    $(function () {
+        issue.init();
+    })
+</script>
+</body>
+
+</html>

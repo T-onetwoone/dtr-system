@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+</head>
+<script>window.contextPath = '${contextPath}';</script>
+<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/js/bootstrap/bootstrap-v4.3.1.min.css">
+<link rel="stylesheet" href="/js/verify/verify.css">
+<body>
+<div class="main" id="login-box">
+    <div class="materialContainer">
+        <div class="box">
+            <div class="title">登录</div>
+            <div class="input">
+                <label for="userName">用户名</label>
+                <input type="text" name="name" id="userName">
+                <span class="spin"></span>
+            </div>
+            <div class="input">
+                <label for="userPass">密码</label>
+                <input type="password" name="pass" id="userPass">
+                <span class="spin"></span>
+            </div>
+<!--            <div class="inputType">-->
+<!--                <label>类型</label>-->
+<!--                <select class="form-control" type="password" name="pass" id="userType">-->
+<!--                    <option value="1">学生</option>-->
+<!--                    <option value="2">教师</option>-->
+<!--                    <option value="3">家长</option>-->
+<!--                </select>-->
+<!--            </div>-->
+            <div class="button login">
+                <button id="login-btn">
+                    <span>登录</span>
+                    <i class="fa fa-check"></i>
+                </button>
+            </div>
+            <a href="javascript:" class="pass-forgot">忘记密码？</a>
+            <a href="javascript:" class="registered-users">注册用户</a>
+        </div>
+    </div>
+    <div id="title">
+        <h1>欢迎使用课外辅导系统</h1>
+        <h3>Welcome to the diagnostic counseling and appointment system</h3>
+    </div>
+    <h5 id="bottom">©版权所有</h5>
+</div>
+<!--注册用户-->
+<div class="modal fade" id="checkRegisteredModel" tabindex="-1" data-backdrop="static" role="dialog"
+     aria-labelledby="checkMsgModelLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkRegisteredModelLabel">注册用户</h5>
+                <button type="button" id="checkRegistered-close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-bottom: 0;">
+                <label for="rName">用户姓名：</label>
+                <input id="rName" class="form-control modal-in"/>
+                <label for="rNbr">用户NBR：</label>
+                <input id="rNbr" class="form-control modal-in"/>
+                <label for="rSex">用户性别：</label>
+                <select class="form-control" id="rSex" type="text" >
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+                <label for="rPass">密码：</label>
+                <input id="rPass" class="form-control modal-in"/>
+                <label for="rConfirmPass">确认密码：</label>
+                <input id="rConfirmPass" class="form-control modal-in"/>
+                <label for="rPhone">联系电话：</label>
+                <input id="rPhone" class="form-control modal-in"/>
+                <div style="padding-top: 0.5rem">
+                    <button id="checkRegistered-btn" class="btn btn-primary" style="float: right">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--申请重置密码-->
+<div class="modal fade bd-example-modal-lg" id="checkPass" tabindex="-1" data-backdrop="static" role="dialog"
+     aria-labelledby="checkPassTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkPassTitle">申请重置密码</h5>
+                <button type="button" id="checkPass-close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row">
+                <div class="col-md-6 InputCheckBox" style="padding-left: 2rem">
+                    <label for="uName">用户名：</label>
+                    <input id="uName" class="form-control modal-in"/>
+                    <label for="uNbr">用户NBR：</label>
+                    <input id="uNbr" class="form-control modal-in"/>
+                    <label for="phone">联系电话：</label>
+                    <input id="phone" class="form-control modal-in"/>
+                    <label for="detail">申诉内容：</label>
+                    <input id="detail" class="form-control modal-in"/>
+                    <div style="padding-top: 0.5rem">
+                        <button id="checkPass-btn" class="btn btn-primary" style="float: right">提交</button>
+                    </div>
+                </div>
+                <div class="col-md-1 text-center">
+                    <div style="width: 1px;height: 100%;background:#dee2e6;border-bottom: 1px solid #dee2e6;left: 50%;position: absolute;" ></div>
+                </div>
+                <div class="col-md-5" style="padding-right: 2rem">
+                    <label for="checkStatus">查看申请情况：</label>
+                    <input id="checkStatus" placeholder="申请流水号" class="form-control modal-in"/>
+                    <div style="padding-top: 0.5rem">
+                        <button id="checkStatus-btn" class="btn btn-primary"  style="float: right">查看</button>
+                    </div>
+                    <div id="msgBox" style="padding-top: 3rem">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="checkBox" tabindex="-1" data-backdrop="static" role="dialog"
+     aria-labelledby="checkBoxTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="top: -22%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkBoxTitle">验证码</h5>
+                <button type="button" id="checkBox-close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" id="close">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="verification-code" >
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap/bootstrap-v4.3.1.min.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/background/quietflow.min.js"></script>
+<script src="/js/verify/verify.min.js"></script>
+<script>
+    var login = (function () {
+        var bindEvents = function () {
+            login.el(".input input").focus(function () {
+                $(this).parent(".input").each(function () {
+                    $("label", this).css({
+                        "line-height": "18px",
+                        "font-size": "18px",
+                        "font-weight": "100",
+                        "top": "0px"
+                    });
+                    $(".spin", this).css({
+                        "width": "100%"
+                    })
+                });
+            }).blur(function () {
+                login.el(".spin").css({
+                    "width": "0px"
+                });
+                if ($(this).val() == "") {
+                    $(this).parent(".input").each(function () {
+                        $("label", this).css({
+                            "line-height": "60px",
+                            "font-size": "24px",
+                            "font-weight": "300",
+                            "top": "10px"
+                        })
+                    });
+                }
+            });
+            // login.el(".button").off('click').on('click',function (e) {
+                // var pX = e.pageX,
+                //     pY = e.pageY,
+                //     oX = parseInt($(this).offset().left),
+                //     oY = parseInt($(this).offset().top);
+                // $(this).append('<span class="click-efect x-' + oX + ' y-' + oY + '" style="margin-left:' + (pX - oX) + 'px;margin-top:' + (pY - oY) + 'px;"></span>');
+                // login.el('.x-' + oX + '.y-' + oY + '').animate({
+                //     "width": "500px",
+                //     "height": "500px",
+                //     "top": "-250px",
+                //     "left": "-250px"
+                // }, 600);
+                // $("button", this).addClass('active');
+            // });
+            login.el(".alt-2").click(function () {
+                if (!$(this).hasClass('material-button')) {
+                    login.el(".shape").css({
+                        "width": "100%",
+                        "height": "100%",
+                        "transform": "rotate(0deg)"
+                    });
+
+                    setTimeout(function () {
+                        $(".overbox").css({
+                            "overflow": "initial"
+                        })
+                    }, 600);
+                    $(this).animate({
+                        "width": "50px",
+                        "height": "50px"
+                    }, 500, function () {
+                        $(".box").removeClass("back");
+
+                        $(this).removeClass('active')
+                    });
+                    login.el(".overbox .title").fadeOut(300);
+                    login.el(".overbox .input").fadeOut(300);
+                    login.el(".overbox .button").fadeOut(300);
+                    login.el(".alt-2").addClass('material-buton');
+                }
+            });
+            login.el(".material-button").click(function () {
+                if ($(this).hasClass('material-button')) {
+                    setTimeout(function () {
+                        login.el(".overbox").css({
+                            "overflow": "hidden"
+                        });
+                        login.el(".box").addClass("back");
+                    }, 200);
+                    $(this).addClass('active').animate({
+                        "width": "800px",
+                        "height": "700px"
+                    });
+                    setTimeout(function () {
+                        login.el(".shape").css({
+                            "width": "50%",
+                            "height": "50%",
+                            "transform": "rotate(45deg)"
+                        });
+                        login.el(".overbox .title").fadeIn(300);
+                        login.el(".overbox .input").fadeIn(300);
+                        login.el(".overbox .button").fadeIn(300);
+                    }, 700);
+                    $(this).removeClass('material-button');
+                }
+                if (login.el(".alt-2").hasClass('material-buton')) {
+                    login.el(".alt-2").removeClass('material-buton');
+                    login.el(".alt-2").addClass('material-button');
+                }
+            });
+            login.el("#login-btn").off('click').on('click', function () {
+                login.loginFunction();
+            });
+            login.el("body").quietflow({
+                theme: "bouncingBalls",
+                specificColors : [
+                    "rgba(255, 10, 50, .5)",
+                    "rgba(10, 255, 50, .5)",
+                    "rgba(10, 50, 255, .5)",
+                    "rgba(0, 0, 0, .5)"
+                ]
+            });
+            login.el(".registered-users").off('click').on('click',function(){
+                login.el("#checkRegisteredModel").modal("show");
+            });
+            login.el("#checkRegistered-btn").off('click').on('click', function () {
+                var nbr = $.trim(login.el("#rNbr").val());
+                var name = login.el("#rName").val();
+                var phone = login.el("#rPhone").val();
+                var pass = login.el("#rPass").val();
+                var confirmPass = login.el("#rConfirmPass").val();
+                var sex = login.el("#rSex").val();
+                console.log("nbr  "+nbr)
+                if (nbr==null||nbr==""){
+                    return App.topAlert("请输入用户姓名", 2);
+                }
+                if (name==null||name==""){
+                    return App.topAlert("请输入用户名", 2);
+                }
+                if (phone==null||phone==""){
+                    return App.topAlert("请输入联系电话", 2);
+                }
+                if (pass!=confirmPass){
+                    login.el("#pass").val('');
+                    login.el("#confirmPass").val('');
+                    return App.topAlert("密码和确认密码不一致，请重新输入", 2);
+                }
+                $.loadJSON("/dtr/user/registered", {
+                    nbr: nbr,
+                    name: name,
+                    phone:phone,
+                    pass:pass,
+                    sex:sex
+                }).done(function (response) {
+                    if (!App.checker(response)) {
+                        return;
+                    } else {
+                        App.alert("注册成功", '', 1, function () {
+                            login.el("#checkRegisteredModel").modal("hide");
+                        });
+                        return;
+                    }
+                });
+            });
+            login.el("#checkRegistered-close").off('click').on('click',function () {
+                login.el("#rNbr").val('');
+                login.el("#rName").val('');
+                login.el("#rPhone").val('');
+                login.el("#rPass").val('');
+                login.el("#rConfirmPass").val('');
+                login.el("#rSex").val('');
+                login.el("#checkStatus").val('');
+                login.el('#msgBox').html('');
+            });
+            login.el(".pass-forgot").off('click').on('click',function(){
+                login.el("#checkPass").modal("show");
+            });
+            login.el("#checkPass-btn").off('click').on('click', function () {
+                var nbr = $.trim(login.el("#uNbr").val());
+                var name = login.el("#uName").val();
+                var iphone = login.el("#phone").val();
+                var detail = login.el("#detail").val();
+                $.loadJSON("/dtr/user/forgetPass", {
+                    nbr: nbr,
+                    name: name,
+                    iphone:iphone,
+                    detail:detail
+                }).done(function (response) {
+                    if (!App.checker(response)) {
+                        return;
+                    } else {
+                        var msg = response.rid;
+                        App.alert('申请成功！','',1,function () {
+                            login.el('#msgBox').html('<h4>申请流水号：'+msg+'</h4>')
+                        });
+                    }
+                });
+            });
+            login.el("#checkPass-close").off('click').on('click',function () {
+                login.el("#uNbr").val('');
+                login.el("#uName").val('');
+                login.el("#phone").val('');
+                login.el("#detail").val('');
+                login.el("#checkStatus").val('');
+                login.el('#msgBox').html('');
+            });
+            login.el("#checkStatus-btn").off('click').on('click',function () {
+                var id = login.el("#checkStatus").val();
+                if (id == ''){
+                    App.topAlert("申请流水号不能为空")
+                }
+                $.loadJSON("/dtr/user/getForgetStatus", {
+                    id:id
+                }).done(function (response) {
+                    if (!App.checker(response)) {
+                        return;
+                    } else {
+                        var status = response.reList.REQUEST_STATUS;
+                        var msg = '';
+                        switch (status) {
+                            case 0:
+                                msg = '处理中';
+                                break;
+                            case 1:
+                                msg = '通过,密码已重置！';
+                                break;
+                            case 2:
+                                msg = '申请拒绝，请重新发起申请或联系管理员！';
+                                break;
+                            default:
+                                msg = '异常';
+                                break;
+                        }
+                        App.alert('查找成功！','状态为：'+ msg,'');
+                    }
+                });
+            });
+            login.el("#checkBox-close").off('click').on('click',function (){
+                login.el('#verification-code').html('');
+            });
+            //在全局中绑定回车按下事件
+            document.onkeydown = function(event) {
+                var e = event || window.event || arguments.callee.caller.arguments[0];
+                if (e && e.keyCode == 13) {
+                    login.loginFunction();
+                }
+                if(e && e.keyCode == 27){
+                    login.el('#verification-code').html("");
+                }
+            };
+            login.el("#close").off('click').on('click',function(){
+                login.el('#verification-code').html("");
+            });
+            };
+        return {
+            data: {},
+            el: function (expr) {
+                return $(expr ? expr : 'body');
+            },
+            init: function () {
+                App.setWhere('login');
+                bindEvents();
+                return;
+            },
+            show: function () {
+                login.el().show();
+                return this;
+            },
+            hide: function () {
+                login.el().hide();
+                return this;
+            },
+            loginFunction:function (){
+                var uNbr = $.trim(login.el("#userName").val());
+                var uPass = login.el("#userPass").val();
+                if (uNbr == "" || uPass == "" ){
+                    App.topAlert('请输入账号或密码',2,1300);
+                }else {
+                    login.el("#checkBox").modal('show');
+                    login.el('#verification-code').slideVerify({
+                        type : 2,		//类型
+                        vOffset : 5,	//误差量，根据需求自行调整
+                        vSpace : 5,	//间隔
+                        imgUrl:'/images/verification-code/',
+                        imgName : ['1.jpg', '2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','7.jpg','8.jpg','9.jpg','10.jpg','11.jpg','12.jpg','13.jpg','14.jpg','15.jpg'],
+                        imgSize : {
+                            width: '460px',
+                            height: '200px',
+                        },
+                        blockSize : {
+                            width: '50px',
+                            height: '50px',
+                        },
+                        barSize : {
+                            width : '460px',
+                            height : '40px',
+                        },
+                        ready : function() {
+                        },
+                        success : function() {
+                            // var uType = login.el("#userType").val();
+                            $.loadJSON("/dtr/user/check", {
+                                uNbr: uNbr,
+                                uPass: uPass,
+                                // uType: uType
+                            }).done(function (response) {
+                                if (!App.checker(response)) {
+                                    login.el("#checkBox").modal('hide');
+                                    login.el('#verification-code').html('');
+                                    return;
+                                } else {
+                                    App.topAlert('登录成功！',1,1300,function () {
+                                        App.goHomeBySelf();
+                                    });
+                                }
+                            });
+                        },
+                        error : function() {
+                            App.topAlert('验证失败',2,1300);
+                        }
+                    });
+                }
+            }
+        }
+    })();
+    $(function () {
+        login.init();
+    });
+</script>
+</body>
+
+</html>

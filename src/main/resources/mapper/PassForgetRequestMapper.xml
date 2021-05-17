@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.mju.ccce.dtrsystem.dao.PassForgetRequestDao">
+
+    <insert id="createRequest"  parameterType="java.util.Map">
+        INSERT INTO passforget_request
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="REQUEST_ID != null">
+                REQUEST_ID,
+            </if>
+            <if test="REQUEST_USER_NAME != null">
+                REQUEST_USER_NAME,
+            </if>
+            <if test="REQUEST_USER_NBR != null">
+                REQUEST_USER_NBR,
+            </if>
+            <if test="REQUEST_USER_IPHONE != null">
+                REQUEST_USER_IPHONE,
+            </if>
+            <if test="REQUEST_DETAIL != null">
+                REQUEST_DETAIL,
+            </if>
+            <if test="REQUEST_STATUS != null">
+                REQUEST_STATUS,
+            </if>
+            <if test="CREAT_TIME != null">
+                CREAT_TIME,
+            </if>
+            <if test="UPDATE_TIME != null">
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="REQUEST_ID != null">
+                #{REQUEST_ID,jdbcType=VARCHAR},
+            </if>
+            <if test="REQUEST_USER_NAME != null">
+                #{REQUEST_USER_NAME,jdbcType=VARCHAR},
+            </if>
+            <if test="REQUEST_USER_NBR != null">
+                #{REQUEST_USER_NBR,jdbcType=VARCHAR},
+            </if>
+            <if test="REQUEST_USER_IPHONE != null">
+                #{REQUEST_USER_IPHONE,jdbcType=VARCHAR},
+            </if>
+            <if test="REQUEST_DETAIL != null">
+                #{REQUEST_DETAIL,jdbcType=VARCHAR},
+            </if>
+            <if test="REQUEST_STATUS != null">
+                #{REQUEST_STATUS,jdbcType=VARCHAR},
+            </if>
+            <if test="CREAT_TIME != null">
+                #{CREAT_TIME,jdbcType=VARCHAR},
+            </if>
+            <if test="UPDATE_TIME != null">
+                #{UPDATE_TIME,jdbcType=NUMERIC},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getRequest" resultType="java.util.Map">
+        SELECT *
+        FROM passforget_request
+        WHERE REQUEST_ID = #{REQUEST_ID,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getRequestByUser" resultType="java.util.Map">
+        SELECT *
+        FROM passforget_request
+        WHERE REQUEST_USER_NBR = #{UserNbr,jdbcType=VARCHAR} AND  REQUEST_STATUS = 0
+    </select>
+
+    <select id="getRequestList" resultType="java.util.Map">
+        SELECT *
+        FROM passforget_request
+        WHERE DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(CREAT_TIME) ORDER BY CREAT_TIME DESC
+    </select>
+
+    <update id="upDataRequest" parameterType="java.util.Map">
+        UPDATE passforget_request
+        SET REQUEST_STATUS = #{REQUEST_STATUS,jdbcType=VARCHAR}
+        WHERE REQUEST_ID = #{REQUEST_ID,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

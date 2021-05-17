@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.mju.ccce.dtrsystem.dao.CourseTypeDao">
+
+    <select id="selectCourseTypeId" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT COURSE_TYPE_ID
+        FROM course_type
+        WHERE COURSE_TYPE_NAME=#{courseTypeName,jdbcType=VARCHAR} AND COURSE_TYPE_STATUS = 0
+    </select>
+
+    <select id="selectCourseType" resultType="java.util.Map">
+        select COURSE_TYPE_ID,COURSE_TYPE_NAME
+        from course_type
+        where COURSE_TYPE_STATUS = 0 ORDER BY COURSE_TYPE_ID
+    </select>
+    <insert id="creaseCourseType" useGeneratedKeys="true" keyProperty="COURSE_TYPE_ID" parameterType="java.util.Map">
+        INSERT INTO course_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="COURSE_TYPE_NAME != null">
+                COURSE_TYPE_NAME,
+            </if>
+            <if test="COURSE_TYPE_STATUS != null">
+                COURSE_TYPE_STATUS,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="COURSE_TYPE_NAME != null">
+                #{COURSE_TYPE_NAME,jdbcType=VARCHAR},
+            </if>
+            <if test="COURSE_TYPE_STATUS != null">
+                #{COURSE_TYPE_STATUS,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteCourseType" parameterType="java.lang.String">
+        DELETE FROM course_type WHERE COURSE_TYPE_ID = #{CourseTId,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

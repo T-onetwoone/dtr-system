@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.mju.ccce.dtrsystem.dao.EvaluateStuDao">
+    <resultMap id="EvaluateMap" type="cn.edu.mju.ccce.dtrsystem.bean.EvaluateStu">
+        <result property="EVALUATE_ID" column="EVALUATE_ID"/>
+        <result property="EVALUATE_NBR" column="EVALUATE_NBR"/>
+        <result property="COURSE_ID" column="COURSE_ID"/>
+        <result property="COURSE_NAME" column="COURSE_NAME"/>
+        <result property="USER_NBR" column="USER_NBR"/>
+        <result property="USER_NAME" column="USER_NAME"/>
+        <result property="EVALUATE_DETAIL" column="EVALUATE_DETAIL"/>
+        <result property="EVALUATE_SCORE" column="EVALUATE_SCORE"/>
+        <result property="CREAT_TIME" column="CREAT_TIME"/>
+        <result property="UPDATE_TIME" column="UPDATE_TIME"/>
+    </resultMap>
+    <sql id="sl_EvaluateStu">
+        <![CDATA[
+         EVALUATE_ID,
+         EVALUATE_NBR,
+         COURSE_ID,
+         COURSE_NAME,
+         USER_NBR,
+         USER_NAME,
+         EVALUATE_DETAIL,
+         EVALUATE_SCORE,
+         EVALUATE_STATUS,
+         CREAT_TIME,
+         UPDATE_TIME
+        ]]>
+    </sql>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="EVALUATE_ID" parameterType="cn.edu.mju.ccce.dtrsystem.bean.EvaluateStu">
+        INSERT INTO evaluate_stu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="EVALUATE_NBR != null">
+                EVALUATE_NBR,
+            </if>
+            <if test="COURSE_ID != null">
+                COURSE_ID,
+            </if>
+            <if test="COURSE_NAME != null">
+                COURSE_NAME,
+            </if>
+            <if test="USER_NBR != null">
+                USER_NBR,
+            </if>
+            <if test="USER_NAME != null">
+                USER_NAME,
+            </if>
+            <if test="EVALUATE_DETAIL != null">
+                EVALUATE_DETAIL,
+            </if>
+            <if test="EVALUATE_SCORE != null">
+                EVALUATE_SCORE,
+            </if>
+            <if test="EVALUATE_STATUS != null">
+                EVALUATE_STATUS,
+            </if>
+            <if test="CREAT_TIME != null">
+                CREAT_TIME,
+            </if>
+            <if test="UPDATE_TIME != null">
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="EVALUATE_NBR != null">
+                #{EVALUATE_NBR,jdbcType=NUMERIC},
+            </if>
+            <if test="COURSE_ID != null">
+                #{COURSE_ID,jdbcType=NUMERIC},
+            </if>
+            <if test="COURSE_NAME != null">
+                #{COURSE_NAME,jdbcType=VARCHAR},
+            </if>
+            <if test="USER_NBR != null">
+                #{USER_NBR,jdbcType=NUMERIC},
+            </if>
+            <if test="USER_NAME != null">
+                #{USER_NAME,jdbcType=VARCHAR},
+            </if>
+            <if test="EVALUATE_DETAIL != null">
+                #{EVALUATE_DETAIL,jdbcType=VARCHAR},
+            </if>
+            <if test="EVALUATE_SCORE != null">
+                #{EVALUATE_SCORE,jdbcType=NUMERIC},
+            </if>
+            <if test="EVALUATE_STATUS != null">
+                #{EVALUATE_STATUS,jdbcType=NUMERIC},
+            </if>
+            <if test="CREAT_TIME != null">
+                #{CREAT_TIME,jdbcType=TIMESTAMP},
+            </if>
+            <if test="UPDATE_TIME != null">
+                #{UPDATE_TIME,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectEvaluate" parameterType="java.lang.String" resultType="cn.edu.mju.ccce.dtrsystem.bean.EvaluateStu">
+        select  <include refid="sl_EvaluateStu" />
+        FROM evaluate_stu
+        WHERE COURSE_ID = #{courseID,jdbcType=VARCHAR} AND USER_NBR = #{userID,jdbcType=VARCHAR}
+    </select>
+    <update id="updateCourse" parameterType="cn.edu.mju.ccce.dtrsystem.bean.Course">
+        UPDATE course
+        <set><trim suffixOverrides=",">
+        <if test="COURSE_ID != null">
+            COURSE_ID=#{COURSE_ID,jdbcType=VARCHAR},
+        </if>
+        <if test="COURSE_NAME != null">
+            COURSE_NAME=#{COURSE_NAME,jdbcType=VARCHAR},
+        </if>
+        <if test="COURSE_TYPE_ID != null">
+            COURSE_TYPE_ID=#{COURSE_TYPE_ID,jdbcType=NUMERIC},
+        </if>
+        <if test="COURSE_TYPE_NAME != null">
+            COURSE_TYPE_NAME=#{COURSE_TYPE_NAME,jdbcType=VARCHAR},
+        </if>
+        <if test="COURSE_DETAIL != null">
+            COURSE_DETAIL=#{COURSE_DETAIL,jdbcType=VARCHAR},
+        </if>
+        <if test="COURSE_TEACHER_NBR != null">
+            COURSE_TEACHER_NBR=#{COURSE_TEACHER_NBR,jdbcType=VARCHAR},
+        </if>
+        <if test="COURSE_TEACHER_NAME != null">
+            COURSE_TEACHER_NAME=#{COURSE_TEACHER_NAME,jdbcType=VARCHAR},
+        </if>
+        <if test="COURSE_STU_NBR != null">
+            COURSE_STU_NBR=#{COURSE_STU_NBR,jdbcType=VARCHAR},
+        </if>
+        <if test="COURSE_DONE_STU_NBR != null">
+            COURSE_DONE_STU_NBR=#{COURSE_DONE_STU_NBR,jdbcType=VARCHAR},
+        </if>
+        <if test="COURSE_TIME != null">
+            COURSE_TIME=#{COURSE_TIME,jdbcType=VARCHAR},
+        </if>
+        <if test="EVALUATE_NBR != null">
+            EVALUATE_NBR=#{EVALUATE_NBR,jdbcType=VARCHAR},
+        </if>
+        <if test="COURSE_STATUS != null">
+            COURSE_STATUS=#{COURSE_STATUS,jdbcType=VARCHAR},
+        </if>
+        <if test="CREAT_TIME != null">
+            CREAT_TIME=#{CREAT_TIME,jdbcType=VARCHAR},
+        </if>
+        <if test="UPDATE_TIME != null">
+            UPDATE_TIME=#{UPDATE_TIME,jdbcType=VARCHAR},
+        </if>
+    </trim></set>
+    WHERE COURSE_ID = #{COURSE_ID,jdbcType=NUMERIC}
+    </update>
+</mapper>

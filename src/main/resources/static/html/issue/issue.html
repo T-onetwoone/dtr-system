@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>发布课程</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/js/bootstrap/bootstrap-v4.3.1.min.css">
+    <link rel="stylesheet" href="/css/issue.css">
+</head>
+
+<body>
+    <div class="navbar navbar-expand-lg navbar-light bg-light ">
+        <h3 class="navbar-brand">诊断辅导预约系统</h3>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">主页 </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">发布课程</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">预约课程</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">评价系统</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">历史信息</a>
+                </li>
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav top-user">
+                    <li class="dropdown  nav-item">
+                        <a id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user userName">用户</span>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">个人信息</a>
+                            <a class="dropdown-item" href="#">。。。</a>
+                            <a class="dropdown-item" href="#">退出</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#">帮助</a></li>
+                    <li class="nav-item"><a herf="#about">关于我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container function">
+        <nav aria-label="breadcrumb function">
+            <ol class="breadcrumb function">
+                <li class="breadcrumb-item " aria-current="page">主页</li>
+                <li class="breadcrumb-item active" aria-current="page">发布课程</li>
+            </ol>
+        </nav>
+        <hr>
+        <div class="row">
+            <p class="alert alert-warning col-md-12 text-xl-center" role="alert"><button type="button" class="close"
+                    data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>请合理安排时间!</p>
+            <div class="col-md-6 text-xl-center classTime">
+                <h5><img src="/images/classTime.png" alt=""> 开始时间</h5>
+                <input class="form-control" id="settime" type="date" />
+            </div>
+            <div class="col-md-6 text-xl-center classType">
+                <h5><img src="/images/classType.png" alt=""> 课程类型</h5>
+                <select class="form-control" name="classType" id="classType">
+                    <option value="语文">语文</option>
+                    <option value="数学">数学</option>
+                    <option value="英语">英语</option>
+                    <option value="物理">物理</option>
+                    <option value="化学">化学</option>
+                </select>
+            </div>
+            <div class="col-md-12 className">
+                <h5><img src="/images/className.png" alt=""> 课程名称</h5>
+                <input class="form-control" id="className" type="" />
+            </div>
+            <div class="col-md-12 classContent">
+                <h5><img src="/images/classContent.png" alt=""> 课程内容</h5>
+                <textarea class="form-control" id="classContent" cols="30" rows="7" style="resize:none"></textarea>
+            </div>
+        </div>
+        <div class="col-md-12 text-right">
+            <button class="btn btn-secondary" id="commitClassMsg" data-toggle="tooltip" data-placement="top"
+                title="请您务必核实输入！">提交</button>
+        </div>
+    </div>
+
+    <!-- 模态框开始 -->
+    <div class="modal fade" id="checkInput" tabindex="-1" role="dialog" aria-labelledby="checkInputTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="checkInputTitle">检查信息</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>开始时间：<span class="inputTIme modal-in"></span></p>
+                    <p>课程类型：<span class="inputType modal-in"></span></p>
+                    <p>课程名称：<span class="inputName modal-in"></span></p>
+                    <p>课程内容：<span class="inputContent modal-in"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary input-modal-no" data-dismiss="modal">取消提交</button>
+                    <button type="button" class="btn btn-primary input-modal-yes">确定提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 模态框结束 -->
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/bootstrap/popper.min.js"></script>
+    <script src="/js/bootstrap/bootstrap-v4.3.1.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script>
+        var issue = (function () {
+            var bindEvents = function () {
+                issue.el("[data-toggle='tooltip']").tooltip();
+                issue.el('#commitClassMsg').off('clicl').on('click', function () {
+                    issue.el('.inputTIme').html(issue.el('#settime').val());
+                    issue.el('.inputType').html(issue.el('#classType').val());
+                    issue.el('.inputName').html(issue.el('#className').val());
+                    issue.el('.inputContent').html(issue.el('#classContent').val());
+                    $('#checkInput').modal('show')
+                });
+                issue.el('.input-modal-yes').off('click').on('click', function () {
+                    App.alert("提交成功");
+                    $('#checkInput').modal('hide');
+                    issue.el('.modal-in').html('');
+                });
+            };
+            return {
+                el: function (expr) {
+                    return $(expr ? expr : 'body');
+                },
+                init: function () {
+                    bindEvents();
+                    return this
+                },
+            }
+        })();
+        $(function () {
+            issue.init();
+        })
+    </script>
+</body>
+
+</html>

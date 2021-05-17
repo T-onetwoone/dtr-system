@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>后台登录</title>
+    <link rel="stylesheet" href="/css/tabris.css">
+    <link rel="stylesheet" href="/css/lib.css">
+    <link rel="stylesheet" href="/css/admin-login.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/js/bootstrap/bootstrap-v4.3.1.min.css">
+    <link rel="stylesheet" href="/js/verify/verify.css">
+</head>
+
+<body>
+<div class="backround-animate" >
+    <div class="bg0 pa" style="z-index: -9">
+        <div class="bg1"></div>
+    </div>
+    <div class="hx-box pa" style="z-index: -9">
+        <ul class="pr">
+            <li class="hx-k1 pa0">
+                <span></span>
+            </li>
+            <li class="hx-k2 pa0">
+                <span></span>
+            </li>
+            <li class="hx-k3 pa0">
+                <span></span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="jumbotron" id="login-box">
+        <h2 class="align-content-around">课外辅导平台管理后台登录</h2>
+        <div class="inputbox">
+            <label>用户名</label>
+            <input class="form-control" id="name" type="text">
+            <label>密码</label>
+            <input class="form-control" id="pass" type="password">
+        </div>
+        <button class="btn btn-primary" style="width: 100%;margin-top: 0.5rem" id="login-btn">登录</button>
+</div>
+<div class="modal fade" id="checkBox" tabindex="-1" data-backdrop="static" role="dialog"
+     aria-labelledby="checkBoxTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="top: -22%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkBoxTitle">验证码</h5>
+                <button type="button" id="checkBox-close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" id="close">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="verification-code" >
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap/popper.min.js"></script>
+<script src="/js/bootstrap/bootstrap-v4.3.1.min.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/verify/verify.min.js"></script>
+<script>
+    var login = (function () {
+        var bindEvents = function () {
+            login.el("#login-btn").off('click').on('click', function () {
+                login.loginFunction();
+            });
+            document.onkeydown = function(event) {
+                var e = event || window.event || arguments.callee.caller.arguments[0];
+                if (e && e.keyCode == 13) {
+                    login.loginFunction();
+                }
+                if(e && e.keyCode == 27){
+                    login.el('#verification-code').html("");
+                }
+            };
+            login.el("#close").off('click').on('click',function(){
+                login.el('#verification-code').html("");
+            });
+        };
+        return {
+            data: {},
+            el: function (expr) {
+                return $(expr ? expr : 'body');
+            },
+            init: function () {
+                bindEvents();
+                return;
+            },
+            show: function () {
+                login.el().show();
+                return this;
+            },
+            hide: function () {
+                login.el().hide();
+                return this;
+            },
+            loginFunction: function () {
+                var adminID = login.el("#name").val();
+                var adminPass = login.el("#pass").val();
+                if (adminID == '' || adminPass == ''){
+                    App.topAlert('请输入账号或密码',2,1300);
+                }else {
+                    login.el('#checkBox').modal('show');
+                    login.el('#verification-code').slideVerify({
+                        type : 2,		//类型
+                        vOffset : 5,	//误差量，根据需求自行调整
+                        vSpace : 5,	//间隔
+                        imgUrl:'/images/verification-code/',
+                        imgName : ['1.jpg', '2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','7.jpg','8.jpg','9.jpg','10.jpg','11.jpg','12.jpg','13.jpg','14.jpg','15.jpg'],
+                        imgSize : {
+                            width: '460px',
+                            height: '200px',
+                        },
+                        blockSize : {
+                            width: '50px',
+                            height: '50px',
+                        },
+                        barSize : {
+                            width : '460px',
+                            height : '40px',
+                        },
+                        ready : function() {
+                        },
+                        success : function() {
+                            $.loadJSON("/dtr/admin/admin-login", {
+                                adminID:adminID,
+                                adminPass:adminPass
+                            }).done(function (response) {
+                                if (!App.checker(response)) {
+                                    login.el("#checkBox").modal('hide');
+                                    login.el('#verification-code').html('');
+                                    return;
+                                } else {
+                                    App.topAlert('登录成功！',1,1300,function () {
+                                        App.goAdminHomeBySelf();
+                                    });
+                                }
+                            });
+                        },
+                        error : function() {
+                            App.topAlert('验证失败',2,1300);
+                        }
+                    });
+                }
+                // var adminID = login.el("#name").val();
+                // var adminPass = login.el("#pass").val();
+                // $.loadJSON('/dtr/admin/admin-login',{
+                //     adminID:adminID,
+                //     adminPass:adminPass
+                // }).done(function (data) {
+                //     if (!App.checker(data)) {
+                //         return;
+                //     } else {
+                //         App.goAdminHomeBySelf();
+                //         return;
+                //     }
+                // });
+            }
+
+        }
+    })();
+    $(function () {
+        login.init();
+    })
+</script>
+</body>
+
+</html>

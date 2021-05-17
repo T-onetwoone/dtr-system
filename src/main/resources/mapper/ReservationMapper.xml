@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.mju.ccce.dtrsystem.dao.ReservationDao">
+    <resultMap id="ReservationMap" type="cn.edu.mju.ccce.dtrsystem.bean.Reservation">
+        <result property="RESERVATION_ID" column="RESERVATION_ID"/>
+        <result property="COURSE_ID" column="COURSE_ID"/>
+        <result property="COURSE_TIME" column="COURSE_TIME"/>
+        <result property="COURSE_TYPE_NAME" column="COURSE_TYPE_NAME"/>
+        <result property="COURSE_NAME" column="COURSE_NAME"/>
+        <result property="COURSE_TEACHER_NBR" column="COURSE_TEACHER_NBR"/>
+        <result property="COURSE_TEACHER_NAME" column="COURSE_TEACHER_NAME"/>
+        <result property="USER_NBR" column="USER_NBR"/>
+        <result property="USER_NAME" column="USER_NAME"/>
+        <result property="RESERVATION_STATUS" column="RESERVATION_STATUS"/>
+        <result property="CREAT_TIME" column="CREAT_TIME"/>
+        <result property="UPDATE_TIME" column="UPDATE_TIME"/>
+    </resultMap>
+    <sql id="sl_Reservation">
+        <![CDATA[
+         RESERVATION_ID,
+         COURSE_ID,
+         COURSE_TIME,
+         COURSE_TYPE_NAME,
+         COURSE_NAME,
+         COURSE_TEACHER_NBR,
+         COURSE_TEACHER_NAME,
+         USER_NBR,
+         USER_NAME,
+         RESERVATION_STATUS,
+         CREAT_TIME,
+         UPDATE_TIME
+        ]]>
+    </sql>
+    <insert id="insertReservationRecord" parameterType="cn.edu.mju.ccce.dtrsystem.bean.Reservation">
+        INSERT INTO reservation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="RESERVATION_ID != null">
+                RESERVATION_ID,
+            </if>
+            <if test="COURSE_ID != null">
+                COURSE_ID,
+            </if>
+            <if test="COURSE_TIME != null">
+                COURSE_TIME,
+            </if>
+            <if test="COURSE_TYPE_NAME != null">
+                COURSE_TYPE_NAME,
+            </if>
+            <if test="COURSE_NAME != null">
+                COURSE_NAME,
+            </if>
+            <if test="COURSE_TEACHER_NBR != null">
+                COURSE_TEACHER_NBR,
+            </if>
+            <if test="COURSE_TEACHER_NAME != null">
+                COURSE_TEACHER_NAME,
+            </if>
+            <if test="USER_NBR != null">
+                USER_NBR,
+            </if>
+            <if test="USER_NAME != null">
+                USER_NAME,
+            </if>
+            <if test="RESERVATION_STATUS != null">
+                RESERVATION_STATUS,
+            </if>
+            <if test="CREAT_TIME != null">
+                CREAT_TIME,
+            </if>
+            <if test="UPDATE_TIME != null">
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="RESERVATION_ID != null">
+                #{RESERVATION_ID,jdbcType=NUMERIC},
+            </if>
+            <if test="COURSE_ID != null">
+                #{COURSE_ID,jdbcType=VARCHAR},
+            </if>
+            <if test="COURSE_TIME != null">
+                #{COURSE_TIME,jdbcType=TIMESTAMP},
+            </if>
+            <if test="COURSE_TYPE_NAME != null">
+                #{COURSE_TYPE_NAME,jdbcType=VARCHAR},
+            </if>
+            <if test="COURSE_NAME != null">
+                #{COURSE_NAME,jdbcType=VARCHAR},
+            </if>
+            <if test="COURSE_TEACHER_NBR != null">
+                #{COURSE_TEACHER_NBR,jdbcType=NUMERIC},
+            </if>
+            <if test="COURSE_TEACHER_NAME != null">
+                #{COURSE_TEACHER_NAME,jdbcType=VARCHAR},
+            </if>
+            <if test="USER_NBR != null">
+                #{USER_NBR,jdbcType=NUMERIC},
+            </if>
+            <if test="USER_NAME != null">
+                #{USER_NAME,jdbcType=VARCHAR},
+            </if>
+            <if test="RESERVATION_STATUS != null">
+                #{RESERVATION_STATUS,jdbcType=NUMERIC},
+            </if>
+            <if test="CREAT_TIME != null">
+                #{CREAT_TIME,jdbcType=TIMESTAMP},
+            </if>
+            <if test="UPDATE_TIME != null">
+                #{UPDATE_TIME,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectAllReservationRecordByStuNbr" parameterType="java.lang.String" resultType="cn.edu.mju.ccce.dtrsystem.bean.Reservation">
+        SELECT <include refid="sl_Reservation" />
+        FROM reservation
+        WHERE USER_NBR = #{StuNbr,jdbcType=VARCHAR} AND DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(COURSE_TIME) AND RESERVATION_STATUS = '0'
+    </select>
+    <select id="selectAllReservationDoneRecordByStuNbr" parameterType="java.lang.String" resultType="cn.edu.mju.ccce.dtrsystem.bean.Reservation">
+        SELECT <include refid="sl_Reservation" />
+        FROM reservation
+        WHERE USER_NBR = #{StuNbr,jdbcType=VARCHAR} AND DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(COURSE_TIME) AND RESERVATION_STATUS = '1'
+    </select>
+
+    <select id="selectAllReservationRecordByCourseID" parameterType="java.lang.String" resultType="cn.edu.mju.ccce.dtrsystem.bean.Reservation">
+        SELECT <include refid="sl_Reservation" />
+        FROM reservation
+        WHERE COURSE_ID = #{courseID,jdbcType=VARCHAR} AND RESERVATION_STATUS = '0'
+    </select>
+    <select id="selectAllDoneReservationRecordByCourseID" parameterType="java.lang.String" resultType="cn.edu.mju.ccce.dtrsystem.bean.Reservation">
+        SELECT <include refid="sl_Reservation" />
+        FROM reservation
+        WHERE COURSE_ID = #{courseID,jdbcType=VARCHAR} AND RESERVATION_STATUS = '1'
+    </select>
+    <select id="selectAllReservationRecordByTeacherNbr" parameterType="java.lang.String" resultType="java.util.List" >
+        SELECT COURSE_ID
+        FROM reservation
+        WHERE COURSE_TEACHER_NBR = #{teacherNbr,jdbcType=VARCHAR} AND RESERVATION_STATUS = '0'
+    </select>
+
+    <select id="selectAllReservationRecordDoneByTeacherNbr" parameterType="java.lang.String" resultType="java.util.List" >
+        SELECT COURSE_ID
+        FROM reservation
+        WHERE COURSE_TEACHER_NBR = #{teacherNbr,jdbcType=VARCHAR} AND RESERVATION_STATUS = '1'
+    </select>
+
+    <update id="updateReservationCourseStatusByCourseID" parameterType="cn.edu.mju.ccce.dtrsystem.bean.Reservation">
+        UPDATE reservation SET RESERVATION_STATUS = #{RESERVATION_STATUS,jdbcType=VARCHAR},UPDATE_TIME= #{UPDATE_TIME,jdbcType=TIMESTAMP}
+        WHERE COURSE_ID = #{COURSE_ID,jdbcType=VARCHAR} AND USER_NBR = #{USER_NBR,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectReservationHistory" parameterType="java.lang.String" resultType="cn.edu.mju.ccce.dtrsystem.bean.Reservation">
+        SELECT <include refid="sl_Reservation" />
+        FROM reservation
+        WHERE USER_NBR = #{userNbr,jdbcType=NUMERIC} AND DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(COURSE_TIME) ORDER BY COURSE_TIME
+    </select>
+
+</mapper>
